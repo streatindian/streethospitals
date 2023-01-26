@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::resource('category', CategoryController::class);
+        Route::post('category/listing', [CategoryController::class, 'listing'])->name('category.listing');
         Route::resource('service', ServiceController::class);
         Route::post('service/listing', [ServiceController::class, 'listing'])->name('service.listing');
         Route::resource('speciality', SpecialityController::class);
@@ -60,7 +61,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'provider'], function () {
         Route::get('dashboard', [ProviderController::class, 'dashboard'])->name('provider.dashboard');
         Route::get('listing/add', [ProviderController::class, 'add'])->name('provider.listing.add');
-        
+        Route::get('listing/form', [ProviderController::class, 'form'])->name('provider.listing.form');
+        Route::post('listing/save', [ProviderController::class, 'save'])->name('provider.listing.save');
+        Route::get('listing/index', [ProviderController::class, 'index'])->name('provider.listing.index');
+        Route::post('listing/list', [ProviderController::class, 'listing'])->name('provider.listing.list');
+        Route::get('listing/edit/{listing_id}', [ProviderController::class, 'edit'])->name('provider.listing.edit');
+        Route::delete('listing/destroy/{listing_id}', [ProviderController::class, 'destroy'])->name('provider.listing.destroy');
+
     });
     Route::get('/logout', [HomeController::class, 'perform'])->name('logout.perform');
 });

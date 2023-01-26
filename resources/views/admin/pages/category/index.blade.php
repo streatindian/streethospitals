@@ -50,51 +50,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($category as $c)
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                name="checkbox" value="checkbox">
-                                                            <span class="custom-control-label"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <span class="mt-2">{{ $c->name }}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        @if ($c->thumbnail)
-                                                            <span class="avatar avatar-md  d-block cover-image mr-3"
-                                                                data-image-src="{{ asset('uploads/category/' . $c->thumbnail) }}">
-                                                            </span>
-                                                        @endif
-
-                                                    </td>
-                                                    <td>
-                                                        @if ($c->thumbnail)
-                                                            <span class="avatar avatar-md  d-block cover-image mr-3"
-                                                                data-image-src="{{ asset('uploads/category/' . $c->banner_image) }}"></span>
-                                                        @endif
-                                                    </td>
-
-                                                    <td>{{ @$c->category->name }}</td>
-                                                    <td>{{ $c->status ? 'Active' : '' }}</td>
-                                                    <td>
-                                                        {{-- <a onclick="return confirm('Are you sure!')" href="{{route()}}"><i class="fa fa-trash"></i></a> --}}
-                                                        <form action="{{ route('category.destroy', $c->id) }}"
-                                                            method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button onclick="return confirm('Are you sure!')"><i
-                                                                    class="fa fa-trash"></i></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -126,7 +81,7 @@
         startDate = new Date();
         startDate.setFullYear(startDate.getFullYear() - 1);
         $("[name=startDate]").val(startDate.toISOString().slice(0, 10));
-        datatableInit("myTable", "{{ url('category/listing') }}", ['name', 'thumbnail', 'banner',
+        datatableInit("myTable", "{{ route('category.listing') }}", ['name', 'thumbnail', 'banner_image',
             'parent_id', 'status', 'action'
         ], filter);
     </script>

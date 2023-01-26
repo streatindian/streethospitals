@@ -17,7 +17,7 @@
     <div class="app-content  my-3 my-md-5">
         <div class="side-app">
             <div class="page-header">
-                <h1 class="page-title">Select </h1>
+                <h1 class="page-title">Select Category</h1>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">User</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List</li>
@@ -30,8 +30,8 @@
                             <div class="row item-all-cat">
                                 @foreach ($category as $c)
                                     <div class="col-xl-3 col-md-6">
-                                        <a href="{{url('provider/listing/form?category='.$c->slug)}}">
-                                            <div class="item-all-card text-center categoryTab">                                            
+                                        <a href="{{url('provider/listing/form?category='.encrypt($c->id))}}">
+                                            <div class="item-all-card text-center categoryTab">
                                                 <div class="iteam-all-icon">
                                                     <img src="{{ asset('uploads/category/' . $c->thumbnail) }}"
                                                         alt="{{ $c->name }}" class="w-30">
@@ -42,7 +42,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        
+
                                     </div>
                                 @endforeach
 

@@ -6,6 +6,10 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use DataTables;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+
 class CategoryController extends Controller
 {
     /**
@@ -27,7 +31,8 @@ class CategoryController extends Controller
     public function create()
     {
         $data['category'] = Category::all();
-        return view('admin.pages.category.form',$data);
+        $data['category_detail'] = null;
+        return view('admin.pages.category.form', $data);
     }
 
     /**
@@ -38,26 +43,44 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'slug' => 'required|unique:categories,slug',
-            'thumbnail' => 'required|image|mimes:png,jpg|max:2048',
+        $rule = [
+            'name' => 'required|unique:categories,name,' . $request->id,
+            'slug' => 'required|unique:categories,slug,' . $request->id,
+            'thumbnail' => 'image|mimes:png,jpg|max:2048',
             'banner_image' => 'image|mimes:png,jpg|max:2048'
-        ]);
+        ];
+        if (!$request->id) {
+            $rule['thumbnail'] =   'required|image|mimes:png,jpg|max:2048';
+        }
+
+
+        $this->validate($request,$rule);
         $uploadDir    = public_path('uploads/category');
         $input = $request->all();
+
         foreach (['thumbnail', 'banner_image'] as $file) {
             if ($request->hasFile($file)) {
                 $ImgValue     = $request->file($file);
                 $getFileExt   = $ImgValue->getClientOriginalExtension();
-                $uploadedFile =   time() . rand(0000,9999).'.' . $getFileExt;
+                $uploadedFile =   time() . rand(0000, 9999) . '.' . $getFileExt;
                 $ImgValue->move($uploadDir, $uploadedFile);
                 $input[$file] = $uploadedFile;
+                if ($request->id) {
+                    $category = Category::find($request->id);
+                    $oldFile = $uploadDir . '/' . $category->{$file};
+                    if (File::exists($oldFile)) {
+                        File::delete($oldFile);
+                    }
+                }
             }
         }
-
-        $category = Category::create($input);
-        return redirect()->back()->with('success', 'Record Add Successfully');
+        $input['slug'] = Str::slug($input['name']);
+        $matchThese = ['id' => $request->id];
+        if (isset($input['id'])) {
+            unset($input['id']);
+        }
+        $category = Category::updateOrCreate($matchThese, $input);
+        return redirect()->route('category.index')->with('success', 'Record '.($request->id?'Update':'Add').' Successfully');
     }
 
     /**
@@ -79,7 +102,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['category'] = Category::all();
+        $data['category_detail'] = Category::find($id);
+        return view('admin.pages.category.form', $data);
     }
 
     /**
@@ -103,11 +128,49 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::whereId($id)->delete();
-        Session::flash('success','Record Delete Successfully');
+        Session::flash('success', 'Record Delete Successfully');
         return redirect()->route('category.index');
     }
 
-    public function listing(){
+    public function listing(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Category::all();
+            return DataTables::of($data)->addIndexColumn()
+                ->editColumn('banner_image', function ($row) {
+                    $imgUrl = asset('uploads/category/' . $row->banner_image);
+                    if ($row->banner_image) return '<img src="' . $imgUrl . '" height="50" width="50">';
+                    else return '';
+                })
+                ->editColumn('thumbnail', function ($row) {
+                    $imgUrl = asset('uploads/category/' . $row->thumbnail);
+                    if ($row->thumbnail)
+                        return '<img src="' . $imgUrl . '" height="50" width="50">';
+                    else return '';
+                })
+                ->editColumn('status', function ($row) {
+                    return $row->status ? 'Active' : 'Inactive';
+                })
+                ->editColumn('parent', function ($row) {
+                    return @$row->category->name;
+                })
+                ->addColumn('action', function ($row) {
+                    $editUrl = $deleteUrl = route('category.edit', $row->id);
+                    // $deleteUrl = route('speciality.destroy',$row->id);
+                    $action = '<div style="display:flex;">';
 
+                    $action .= '<div><a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a></div>&nbsp;';
+                    $action .= '<div><form action="' . route('category.destroy', $row->id) . '" method="POST">
+                        <input type="hidden" name="_method" value="delete" />
+                        <input type="hidden" name="_token" value="' . csrf_token() . '">
+                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                        </form></div></div>';
+                    return $action;
+                })
+
+                ->rawColumns(['status', 'actions'])
+                ->escapeColumns([])
+                ->make(true);
+        }
     }
 }

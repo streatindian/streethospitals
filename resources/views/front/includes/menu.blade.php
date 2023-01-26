@@ -192,7 +192,7 @@
                     </li>
                     <li aria-haspopup="true" class="d-lg-none mt-5 pb-5 mt-lg-0">
                         <span>
-                            <a href="{{ route('provider.dashboard') }}" class="btn btn-secondary btn-block mb-lg-0"><i
+                            <a href="{{ route('provider.listing.index') }}" class="btn btn-secondary btn-block mb-lg-0"><i
                                     class="icon icon-plus mr-1 text-white"></i>Add Your Listing</a>
                         </span>
                     </li>
@@ -200,7 +200,7 @@
                 <ul class="mb-0">
                     <li aria-haspopup="true" class="d-none d-lg-block ">
                         <span>
-                            <a href="{{ route('provider.dashboard') }}" class="btn btn-danger btn-block mb-lg-0"><i
+                            <a href="{{ route('provider.listing.index') }}" class="btn btn-danger btn-block mb-lg-0"><i
                                     class="fe fe-plus-circle mr-1 text-white"></i>Add Your Listing</a>
                         </span>
                     </li>

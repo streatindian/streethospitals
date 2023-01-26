@@ -175,8 +175,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('status') is-invalid @enderror"
-                                                                name="status" id="state">
+                                                                class="form-control  @error('state') is-invalid @enderror"
+                                                                name="state" id="state">
                                                                 <option value="">Select State</option>
                                                             </select>
                                                             @error('state')
