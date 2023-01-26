@@ -1,0 +1,97 @@
+#count-down {
+	margin: 3rem;
+	.clock-presenter {
+		height: 80px;
+		padding: 0;
+		text-align: center;
+		.digit {
+			margin-top: 20px;
+			font-size: 3rem;
+			line-height: 46px;
+			height: 50px;
+			padding: 0 7px;
+			display: inline-block;
+			overflow: hidden;
+			text-align: center;
+			position: relative;
+			cursor: default;
+			color: $white;
+			background-size: cover;
+			border-radius: 2px;
+		}
+		.note {
+			position: relative;
+			margin-bottom: 0;
+			cursor: default;
+			font-size: 16px;
+			opacity: .7;
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	#count-down .clock-presenter .digit {
+		font-size: 42px;
+	}
+}
+
+@media (max-width: 767px) {
+	#count-down {
+		.clock-presenter {
+			width: 50%;
+			float: left;
+			.digit {
+				font-size: 36px;
+			}
+		}
+		.hours_dash {
+			border-right: none;
+		}
+	}
+}
+
+#count-down1 .clock-presenter {
+	padding: 0;
+	text-align: center;
+	.digit {
+		font-size: 20px;
+		line-height: 40px;
+		height: 40px;
+		display: inline-block;
+		overflow: hidden;
+		text-align: center;
+		position: relative;
+		cursor: default;
+		background: $white;
+		color: $black;
+		border-radius: 2px;
+	}
+	.note {
+		position: relative;
+		margin-bottom: 0;
+		cursor: default;
+		font-size: 14px;
+		opacity: .7;
+	}
+}
+
+@media (max-width: 992px) {
+	#count-down1 .clock-presenter .digit {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 767px) {
+	#count-down1 {
+		.clock-presenter {
+			width: 50%;
+			float: left;
+			.digit {
+				font-size: 18px;
+			}
+		}
+		.hours_dash {
+			border-right: none;
+		}
+	}
+}

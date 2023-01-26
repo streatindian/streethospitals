@@ -1,0 +1,45 @@
+#main section {
+	height: 400px;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+#main section>.text {
+	position: relative;
+	top: 55%;
+	transform: translateY(-50%);
+	z-index: 2;
+}
+#main section>.text>h1 {
+	font-size: 42px;
+	color: #fff;
+	border-bottom: 0;
+	margin: 0 0 10px;
+}
+#main section>.text>h3 {
+	color: #fff;
+	margin: 0;
+}
+#main {
+	text-align: left;
+}
+#more {
+	margin: 20px auto 48px;
+}
+@media (max-width:991px) {
+	#main section>.text {
+		position: relative;
+		top: 50.5%;
+		transform: translateY(-50%);
+		z-index: 2;
+	}
+}
+@media (max-width: 576px) {
+	#main section>.text h1 {
+		font-size: 2rem !important;
+	}
+}
+#main section>.text h1 {
+	font-size: 3.2rem;
+	font-weight: 400;
+}

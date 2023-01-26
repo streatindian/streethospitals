@@ -1,0 +1,121 @@
+.example .pagination {
+	margin-bottom: 0;
+}
+
+.pagination {
+	display: -ms-flexbox;
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	border-radius: 2px;
+}
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	color: $color;
+	line-height: 1.25;
+	background-color: $white;
+	border: 1px solid #e4e6f1;
+	&:hover {
+		z-index: 2;
+		text-decoration: none;
+		background-color: #eaecfb;
+	}
+	&:focus {
+		z-index: 2;
+		outline: 0;
+		box-shadow: none;
+	}
+	&:not(:disabled):not(.disabled) {
+		cursor: pointer;
+	}
+}
+
+.page-item {
+	&:first-child .page-link {
+		margin-left: 0;
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+	}
+	&:last-child .page-link {
+		border-top-right-radius: 2px;
+		border-bottom-right-radius: 2px;
+	}
+	&.active .page-link {
+		z-index: 1;
+		color: $white;
+	}
+	&.disabled .page-link {
+		color: #ced4da;
+		pointer-events: none;
+		cursor: auto;
+		background-color: $white;
+		border-color: #e4e6f1;
+	}
+}
+
+.pagination-lg {
+	.page-link {
+		padding: .75rem 1.5rem;
+		font-size: 1.125rem;
+		line-height: 1.5;
+	}
+	.page-item {
+		&:first-child .page-link {
+			border-top-left-radius: 2px;
+			border-bottom-left-radius: 2px;
+		}
+		&:last-child .page-link {
+			border-top-right-radius: 2px;
+			border-bottom-right-radius: 2px;
+		}
+	}
+}
+
+.pagination-sm {
+	.page-link {
+		padding: .25rem .5rem;
+		font-size: .875rem;
+		line-height: 1.5;
+	}
+	.page-item {
+		&:first-child .page-link {
+			border-top-left-radius: 2px;
+			border-bottom-left-radius: 2px;
+		}
+		&:last-child .page-link {
+			border-top-right-radius: 2px;
+			border-bottom-right-radius: 2px;
+		}
+	}
+}
+
+ul.inbox-pagination {
+	float: right;
+	li {
+		float: left;
+	}
+}
+
+.pagination-simple .page-item {
+	.page-link {
+		background: 0 0;
+		border: none;
+	}
+	&.active .page-link {
+		color: #3d4e67;
+		font-weight: 700;
+	}
+}
+
+.pagination-pager {
+	.page-prev {
+		margin-right: auto;
+	}
+	.page-next {
+		margin-left: auto;
+	}
+}

@@ -1,0 +1,40 @@
+.user-card .card-block {
+	.user-image {
+		position: relative;
+		margin: 0 auto;
+		display: inline-block;
+		padding: 5px;
+		width: 110px;
+		height: 110px;
+	}
+	.activity-leval li {
+		display: inline-block;
+		width: 15%;
+		height: 4px;
+		margin: 0 3px;
+		background-color: #e9ebf9;
+	}
+	.counter-block {
+		color: $white;
+	}
+	.user-social-link i {
+		font-size: 30px;
+	}
+}
+
+.user-wideget-footer {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-top: 1px solid #f4f4f4;
+	padding: 10px;
+	background-color: $white;
+}
+
+.user-wideget .border-right {
+	border-right: 1px solid #f4f4f4;
+}
+
+.user-wideget-text {
+	position: relative;
+	margin-bottom: -38px;
+}
