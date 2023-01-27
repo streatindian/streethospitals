@@ -43,10 +43,10 @@ class ProviderController extends Controller
     {
         $rule = [];
         // dd($request->all());
-        if ($request->type == 'hospital') {
+        if ($request->type == 'hospital' || $request->type == 'clinic') {
             $rule['type'] = 'required';
             $rule['name'] = 'required|unique:listings,name,'.$request->id;
-            $rule['phone'] = 'required';
+            $rule['phone'] = 'required|unique:listings,phone,'.$request->id;
             $rule['address'] = 'required';
             $rule['timing'] = 'required';
             $rule['year'] = 'required';
@@ -55,14 +55,29 @@ class ProviderController extends Controller
             $rule['service'] = 'required';
             $rule['country'] = 'required';
             $rule['state'] = 'required';
-            $rule['email'] = 'required';
-
+            $rule['email'] = 'required|unique:listings,email,'.$request->id;
+            // $rule['email2'] = 'required|unique:listings,email2,'.$request->id;
+            $rule['city'] = 'required';
+            // $rule['phone2'] = 'required|unique:listings,phone2,'.$request->id;
+            $rule['website'] = 'required';
+            // $rule['director_name'] = 'required';
+            // $rule['director_phone'] = 'required';
+            // $rule['manager_name'] = 'required';
+            // $rule['manager_phone'] = 'required';
+            $rule['ot_service'] = 'required';
+            // $rule['intensive_care_services'] = 'required';
+            $rule['ambulance'] = 'required';
+            $rule['pathology'] = 'required';
+            $rule['is_radiodiagnosis'] = 'required';
+            // $rule['radiodiagnosis'] = 'required';
+            $rule['about'] = 'required';
+            $rule['pathology'] = 'required';
+            $rule['management'] = 'required';
             $rule['profile_pic'] = $request->id?'mimes:jpg,jpeg,png':'required|mimes:jpg,jpeg,png';
         }
         $this->validate($request, $rule);
         $uploadDir    = public_path('uploads/listing');
         File::isDirectory($uploadDir) or File::makeDirectory($uploadDir, 0777, true, true);
-
         $input = $request->all();
         // dd($input);
         // dd($request->intensive_care_services);
@@ -89,7 +104,7 @@ class ProviderController extends Controller
             }
         }
         $input['user_id'] = Auth::user()->id;
-
+        $input['is_radiodiagnosis'] = (int) $request->is_radiodiagnosis;
         $matchThese = ['id' => $request->id];
         if (isset($input['id'])) {
             unset($input['id']);

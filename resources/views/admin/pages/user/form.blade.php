@@ -152,8 +152,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('country') is-invalid @enderror"
-                                                                name="country" id="country">
+                                                                class="form-control country @error('country') is-invalid @enderror"
+                                                                name="country" >
                                                                 @foreach ($country as $c)
                                                                     <option value="{{ $c->id }}">
                                                                         {{ $c->name }}</option>
@@ -175,8 +175,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('state') is-invalid @enderror"
-                                                                name="state" id="state">
+                                                                class="form-control state @error('state') is-invalid @enderror"
+                                                                name="state">
                                                                 <option value="">Select State</option>
                                                             </select>
                                                             @error('state')
@@ -195,8 +195,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('city') is-invalid @enderror"
-                                                                name="city" id="city">
+                                                                class="form-control city @error('city') is-invalid @enderror"
+                                                                name="city">
                                                                 <option value="">Select City</option>
                                                             </select>
                                                             @error('city')

@@ -64,6 +64,10 @@
             float: right;
             margin-bottom: 10px;
         }
+        .select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: black;
+    color:white;
+}
     </style>
 </head>
 

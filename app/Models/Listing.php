@@ -22,6 +22,8 @@ class Listing extends Model
     "director_phone",
     "manager_name",
     "manager_phone",
+    "management",
+    "service",
     "intensive_care_services",
     "pathology" ,
     "is_radiodiagnosis" ,"radiodiagnosis","ambulance",

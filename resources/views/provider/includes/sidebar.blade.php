@@ -21,7 +21,7 @@
 
         </li>
         <li class="slide">
-            <a class="side-menu__item"  href="#"><i
+            <a class="side-menu__item"  href="{{route('provider.listing.add')}}"><i
                     class="side-menu__icon fa fa-building"></i><span class="side-menu__label">My Listing</span></a>
 
         </li>

@@ -156,8 +156,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('country') is-invalid @enderror"
-                                                                name="country" id="country">
+                                                                class="form-control country @error('country') is-invalid @enderror"
+                                                                name="country" >
                                                                 @php
 
                                                                 @endphp
@@ -183,8 +183,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('status') is-invalid @enderror"
-                                                                name="status" id="state">
+                                                                class="form-control  state @error('status') is-invalid @enderror"
+                                                                name="status">
                                                                 @foreach ($state as $c)
                                                                     <option value="{{ $c->id }}"
                                                                         @selected($c->id == $user->state)>
@@ -207,8 +207,8 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <select
-                                                                class="form-control  @error('city') is-invalid @enderror"
-                                                                name="city" id="city">
+                                                                class="form-control  city @error('city') is-invalid @enderror"
+                                                                name="city" >
                                                                 @if(count($city) == 0)
                                                                     <option value="">Select City</option>
                                                                 @endif
