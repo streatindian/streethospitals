@@ -3,6 +3,7 @@
     <link href="{{ asset('assets/plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
+    <link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
     <style>
         .categoryTab {
             border-radius: 5px;
@@ -33,6 +34,14 @@
             border-radius: 2px;
             transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
+        }
+
+        .ff_fileupload_wrap {
+            width: 100%;
+        }
+
+        .ff_fileupload_start_upload {
+            display: none;
         }
     </style>
     <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css" />
@@ -168,6 +177,30 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group">
+                                                <label class="form-label text-dark">Latitude</label>
+                                                <input type="text"
+                                                    class="form-control  required @error('latitude') is-invalid @enderror"
+                                                    name="latitude" placeholder="Latitude"
+                                                    value="{{ $listing ? $listing->latitude : old('latitude') }}">
+                                                @error('latitude')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label text-dark">Longitude </label>
+                                                <input type="text"
+                                                    class="form-control  required @error('longitude') is-invalid @enderror"
+                                                    name="longitude" placeholder="Longitude"
+                                                    value="{{ $listing ? $listing->longitude : old('longitude') }}">
+                                                @error('longitude')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                             <div class="form-group ">
                                                 <label class="form-label text-dark">Country
                                                 </label>
@@ -262,7 +295,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label text-dark">Web Site</label>
-                                                <input type="text"
+                                                <input type="url"
                                                     class="form-control  required @error('website') is-invalid @enderror"
                                                     name="website" placeholder="Enter Website"
                                                     value="{{ $listing ? $listing->website : old('website') }}">
@@ -638,18 +671,6 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
-                                                <label class="form-label text-dark">Area of Specialization</label>
-                                                <input type="text"
-                                                    class="form-control  required @error('specialization') is-invalid @enderror"
-                                                    name="specialization" placeholder="Add Specialization"
-                                                    value="{{ $listing ? $listing->specialization : old('specialization') }}">
-                                                @error('specialization')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
 
                                             <div class="form-group">
                                                 <div class="row">
@@ -671,23 +692,21 @@
                                                             </span>
                                                         @enderror
                                                     </div>
+
                                                     <div class="col-md-4">
                                                         <label class="form-label text-dark">&nbsp;</label>
                                                         <select name="birth_month"
                                                             class="custom-select select2 @error('birth_month') is-invalid @enderror">
+                                                            @php
+                                                                $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                                            @endphp
+
                                                             <option value="" selected="selected">Month</option>
-                                                            <option value="1">January</option>
-                                                            <option value="2">February</option>
-                                                            <option value="3">March</option>
-                                                            <option value="4">April</option>
-                                                            <option value="5">May</option>
-                                                            <option value="6">June</option>
-                                                            <option value="7">July</option>
-                                                            <option value="8">August</option>
-                                                            <option value="9">September</option>
-                                                            <option value="10">October</option>
-                                                            <option value="11">November</option>
-                                                            <option value="12">December</option>
+                                                            @foreach ($months as $key => $m)
+                                                                <option value="{{ $key + 1 }}"
+                                                                    {{ old('birth_month') == $key + 1 || @$listing->birth_month == $key + 1 ? 'selected' : '' }}>
+                                                                    {{ $m }}</option>
+                                                            @endforeach
                                                         </select>
                                                         @error('birth_month')
                                                             <span class="invalid-feedback" role="alert">
@@ -724,16 +743,30 @@
                                                     class="form-control blood_group  select2 @error('blood_group') is-invalid @enderror"
                                                     name="blood_group">
                                                     <option value="">Select Blood Group</option>
-                                                    <option value="" selected="">Select</option>
-                                                    <option value="A+">A+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="AB-">AB-</option>
-                                                    <option value="B+">B+</option>
-                                                    <option value="B-">B-</option>
-                                                    <option value="O+">O+</option>
-                                                    <option value="O-">O-</option>
-
+                                                    <option value="A+"
+                                                        {{ @$listing->blood_group == 'A+' || old('blood_group') == 'A+' ? 'selected' : '' }}>
+                                                        A+</option>
+                                                    <option value="A-"
+                                                        {{ @$listing->blood_group == 'A-' || old('blood_group') == 'A-' ? 'selected' : '' }}>
+                                                        A-</option>
+                                                    <option value="AB+"
+                                                        {{ @$listing->blood_group == 'AB+' || old('blood_group') == 'AB+' ? 'selected' : '' }}>
+                                                        AB+</option>
+                                                    <option value="AB-"
+                                                        {{ @$listing->blood_group == 'AB-' || old('blood_group') == 'AB-' ? 'selected' : '' }}>
+                                                        AB-</option>
+                                                    <option value="B+"
+                                                        {{ @$listing->blood_group == 'B+' || old('blood_group') == 'B+' ? 'selected' : '' }}>
+                                                        B+</option>
+                                                    <option value="B-"
+                                                        {{ @$listing->blood_group == 'B-' || old('blood_group') == 'B-' ? 'selected' : '' }}>
+                                                        B-</option>
+                                                    <option value="O+"
+                                                        {{ @$listing->blood_group == 'O+' || old('blood_group') == 'O+' ? 'selected' : '' }}>
+                                                        O+</option>
+                                                    <option value="O-"
+                                                        {{ @$listing->blood_group == 'O-' || old('blood_group') == 'O-' ? 'selected' : '' }}>
+                                                        O-</option>
                                                 </select>
                                                 @error('blood_group')
                                                     <span class="invalid-feedback" role="alert">
@@ -760,6 +793,30 @@
                                                 <textarea class="form-control  required @error('address') is-invalid @enderror" name="address" rows="3"
                                                     placeholder="address..">{{ $listing ? $listing->address : old('address') }}</textarea>
                                                 @error('address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label text-dark">Latitude</label>
+                                                <input type="number"
+                                                    class="form-control  required @error('latitude') is-invalid @enderror"
+                                                    name="latitude" placeholder="Latitude"
+                                                    value="{{ $listing ? $listing->latitude : old('latitude') }}">
+                                                @error('latitude')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label text-dark">Longitude </label>
+                                                <input type="number"
+                                                    class="form-control  required @error('longitude') is-invalid @enderror"
+                                                    name="longitude" placeholder="Longitude"
+                                                    value="{{ $listing ? $listing->longitude : old('longitude') }}">
+                                                @error('longitude')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -858,13 +915,58 @@
                                                     </span>
                                                 @enderror
                                             </div>
-
                                             <div class="form-group">
-                                                <label class="form-label text-dark">Education Detail</label>
+                                                <label class="form-label text-dark">Education Detail </label>
+                                                <div id="educationAppendSection"></div>
+                                                @if (@$listing->course)
+                                                    @foreach (@$listing->course as $c)
+                                                        <div class="row mb-2">
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">Education Detail</label> --}}
+                                                                <input name="course[]" value="{{ $c->course }}"
+                                                                    class="form-control" placeholder="Course Name">
+                                                                @error('course[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                                <input name="passout_year[]"
+                                                                    value="{{ $c->passout_year }}" class="form-control"
+                                                                    placeholder="Passout Year">
+                                                                @error('course[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                                <input name="college[]" value="{{ $c->college }}"
+                                                                    class="form-control" placeholder="College Name">
+                                                                @error('college[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                                <button
+                                                                    onclick="$(this).parent().parent().remove()"type="button"
+                                                                    class="btn btn-outline-danger btn-pill"><i
+                                                                        class="fa fa-trash"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 <div class="row mb-2" id="educationRow">
                                                     <div class="col-md-3">
                                                         {{-- <label class="form-label text-dark">Education Detail</label> --}}
-                                                       <input name="course[]" value="" class="form-control" placeholder="Course Name">
+                                                        <input name="course[]" value="" class="form-control"
+                                                            placeholder="Course Name">
                                                         @error('course[0]')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -873,7 +975,8 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         {{-- <label class="form-label text-dark">&nbsp;</label> --}}
-                                                       <input name="passout_year[]" value="" class="form-control" placeholder="Passout Year">
+                                                        <input name="passout_year[]" value="" class="form-control"
+                                                            placeholder="Passout Year">
                                                         @error('course[0]')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -882,7 +985,8 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         {{-- <label class="form-label text-dark">&nbsp;</label> --}}
-                                                       <input name="college[]" value="" class="form-control" placeholder="College Name">
+                                                        <input name="college[]" value="" class="form-control"
+                                                            placeholder="College Name">
                                                         @error('college[0]')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -891,22 +995,102 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         {{-- <label class="form-label text-dark">&nbsp;</label> --}}
-                                                        <button id="addEducation" type="button" class="btn btn-outline-primary btn-pill"><i class="fa fa-plus"></i></button>
+                                                        <button id="addEducation" type="button"
+                                                            class="btn btn-outline-primary btn-pill"><i
+                                                                class="fa fa-plus"></i></button>
                                                     </div>
                                                 </div>
-                                                <div id="educationAppendSection"></div>
+
 
                                             </div>
-
                                             <div class="form-group">
-                                                <label class="form-label text-dark">Please write few words about
-                                                    yourself</label>
-                                                <textarea class="form-control @error('about') is-invalid @enderror" name="about">{{ old('about') ? old('about') : @$listing->about }}</textarea>
-                                                @error('about')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <label class="form-label text-dark">Medical Associations Membership
+                                                    Details:</label>
+                                                <div id="associationAppendSection"></div>
+                                                @if (@$listing->associations)
+                                                    @foreach (@$listing->associations as $a)
+                                                        <div class="row mb-2">
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">Education Detail</label> --}}
+                                                                <input name="associations[]"
+                                                                    value="{{ $a->association }}" class="form-control"
+                                                                    placeholder="Association Name">
+                                                                @error('associations[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                                <input name="branch_name[]" value="{{ $a->branch }}"
+                                                                    class="form-control" placeholder="Branch Name">
+                                                                @error('branch_name[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                                <input name="member[]" value="{{ $a->member_type }}"
+                                                                    class="form-control"
+                                                                    placeholder="Member type Life / Normal">
+                                                                @error('member[0]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <button
+                                                                    onclick="$(this).parent().parent().remove()"type="button"
+                                                                    class="btn btn-outline-danger btn-pill"><i
+                                                                        class="fa fa-trash"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                                <div class="row mb-2" id="associationRow">
+                                                    <div class="col-md-3">
+                                                        {{-- <label class="form-label text-dark">Education Detail</label> --}}
+                                                        <input name="associations[]" value="" class="form-control"
+                                                            placeholder="Association Name">
+                                                        @error('associations[0]')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                        <input name="branch_name[]" value="" class="form-control"
+                                                            placeholder="Branch Name">
+                                                        @error('branch_name[0]')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                        <input name="member[]" value="" class="form-control"
+                                                            placeholder="Member type Life / Normal">
+                                                        @error('member[0]')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        {{-- <label class="form-label text-dark">&nbsp;</label> --}}
+                                                        <button id="addAssociation" type="button"
+                                                            class="btn btn-outline-primary btn-pill"><i
+                                                                class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+
+
                                             </div>
 
 
@@ -1059,51 +1243,372 @@
                                         </div>
                                     </div>
                                     <div class="post-content  {{ strtolower($category->name) == 'massage parlours' || strtolower($category->name) == 'massage parlour' ? 'active' : '' }}"
-                                        id="pharmacy">
-                                        <div class="form-group">
+                                        id="massage_parlours">
+                                        @if ($errors->any())
+                                            {{ implode('', $errors->all('<div>:message</div>')) }}
+                                        @endif
+                                        <form action="{{ route('provider.listing.save') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="type" value="massage_parlour">
+                                            <input type="hidden" name="category_id" value="{{ $category->id }}">
+                                            <input type="hidden" name="id"
+                                                value="{{ $listing ? $listing->id : '' }}">
+
                                             <div class="form-group">
-                                                <label class="form-label text-dark">Name</label>
-                                                <input type="text" class="form-control  required"
-                                                    placeholder="Enter Name">
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Business/Outlet Name</label>
+                                                    <input type="text" class="form-control  required" name="name"
+                                                        value="{{ @$listing->name?@$listing->name:old('name') }}"
+                                                        placeholder="Enter Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Email Address </label>
+                                                    <input type="email"
+                                                        class="form-control  required @error('email') is-invalid @enderror"
+                                                        name="email" placeholder="Enter Email"
+                                                        value="{{ $listing ? $listing->email : old('email') }}">
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label class="form-label text-dark">Country
+                                                    </label>
+                                                    <select
+                                                        class="form-control country  @error('country') is-invalid @enderror"
+                                                        name="country">
+                                                        <option value="">Select Country</option>
+                                                        @foreach ($country as $c)
+                                                            <option value="{{ $c->id }}"
+                                                                {{ $c->id == @$listing->country || $c->id == old('country') ? 'selected' : '' }}>
+                                                                {{ $c->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('country')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label class="form-label text-dark">State
+                                                    </label>
+                                                    <select
+                                                        class="form-control state @error('state') is-invalid @enderror"
+                                                        name="state">
+                                                        <option value="">Select State</option>
+                                                    </select>
+                                                    @error('state')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label class="form-label text-dark">City
+                                                    </label>
+                                                    <select class="form-control  city @error('city') is-invalid @enderror"
+                                                        name="city">
+                                                        <option value="">Select City</option>
+                                                    </select>
+                                                    @error('city')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Pin Code</label>
+                                                    <input type="number" class="form-control  required" name="pincode"
+                                                        value="{{ old('pincode') ? old('pincode') : @$listing->pincode }}"
+                                                        placeholder="Enter Pin Code">
+                                                    @error('pincode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Address</label>
+                                                    <textarea class="form-control  required" name="address" rows="3" placeholder="Enter Address"> {{ old('address') ? old('address') : @$listing->address }}</textarea>
+                                                    @error('address')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Latitude</label>
+                                                    <input type="text"
+                                                        class="form-control  required @error('latitude') is-invalid @enderror"
+                                                        name="latitude" placeholder="Latitude"
+                                                        value="{{ $listing ? $listing->latitude : old('latitude') }}">
+                                                    @error('latitude')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Longitude </label>
+                                                    <input type="text"
+                                                        class="form-control  required @error('longitude') is-invalid @enderror"
+                                                        name="longitude" placeholder="Longitude"
+                                                        value="{{ $listing ? $listing->longitude : old('longitude') }}">
+                                                    @error('longitude')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Web Site</label>
+                                                    <input type="url"
+                                                        class="form-control  required @error('website') is-invalid @enderror"
+                                                        name="website" placeholder="Enter Website"
+                                                        value="{{ $listing ? $listing->website : old('website') }}">
+                                                    @error('website')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Phone Number</label>
+                                                    <input type="number" class="form-control  required" name="phone"
+                                                        value="{{ old('phone') ? old('phone') : @$listing->phone }}"
+                                                        placeholder="Enter Number">
+                                                    @error('phone')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Phone Number 2</label>
+                                                    <input type="number" class="form-control  required" name="phone2"
+                                                        value="{{ old('phone2') ? old('phone2') : @$listing->phone2 }}"
+                                                        placeholder="Enter Number 2">
+                                                    @error('phone2')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Massage Therapy</label>
+                                                    <select class="form-control massage required" name="massage_types[]"
+                                                        multiple="multiple"
+                                                        {{ old('massage_types[0]') ? old('massage_types[0]') : @$listing->massage_types }}
+                                                        placeholder="Enter Number 2">
+
+                                                       @php
+                                                        $massageTypes = ['Acupressure Massage',
+                                                        'Acupuncture',
+                                                        'Adult Massage',
+                                                        'Aqua Massage',
+                                                        'Aromatherapy',
+                                                        'Ashiatsu Massage',
+                                                        'Ayurveda',
+                                                        'Baby Massage',
+                                                        'Back Massage',
+                                                        'Balinese Massage',
+                                                        'Bleaching',
+                                                        'Body to Body Massage',
+                                                        'Bowen Therapy',
+                                                        'Breema Massage',
+                                                        'Chair Massage',
+                                                        'Chinese Massage',
+                                                        'Chocolate Massage',
+                                                        'Corporate Massage',
+                                                        'Couples Massage',
+                                                        'CranioSacral Therapy',
+                                                        'Deep Tissue',
+                                                        'Dirty Soapy Massage',
+                                                        'Erotic Massage',
+                                                        'Face Massage',
+                                                        'Facial',
+                                                        'Fish Massage',
+                                                        'Foot Massage',
+                                                        'Four Hands Massage',
+                                                        'Full Body Massage',
+                                                        'Geriatric Massage',
+                                                        'GFE Massage',
+                                                        'Group Massage',
+                                                        'Happy Ending Massage',
+                                                        'Head and Shoulder',
+                                                        'Healing Touch',
+                                                        'Hot Stone Massage',
+                                                        'Integrative Acupressure',
+                                                        'Integrative Positional Therapy',
+                                                        'Japanese Massage',
+                                                        'Kerala Ayurvedic',
+                                                        'Korean Massage',
+                                                        'Liberating Massage',
+                                                        'Lingam Massage',
+                                                        'Lomi Lomi Massage',
+                                                        'Lymphatic Breast Massage',
+                                                        'Medical Massage',
+                                                        'Nuru Massage',
+                                                        'Perineal Massage',
+                                                        'Poultice Massage',
+                                                        'Pregnancy Massage(Prenatal)',
+                                                        'Prostate Massage',
+                                                        'Reflexology',
+                                                        'Reiki Massage',
+                                                        'Russian Massage',
+                                                        'Sandwich Massage',
+                                                        'Sensual Massage',
+                                                        'Shiatsu',
+                                                        'Slimming Massage',
+                                                        'Sports Massage',
+                                                        'Steam Bath',
+                                                        'Steam Wrap',
+                                                        'Swedish Massage',
+                                                        'Tai Chi',
+                                                        'Tandem Massage',
+                                                        'Tantric Massage(Tantra)',
+                                                        'Thai Massage',
+                                                        'Thai Yoga Bodywork',
+                                                        'Therapeutic Bodywork',
+                                                        'Therapeutic Massage',
+                                                        'Trigger Point Therapy',
+                                                        'Turkish Massage',
+                                                        'Yoga Massage',
+                                                        'Yoni Massage',
+                                                        'Zen Shiatsu',
+                                                        'Other'];
+                                                        @endphp
+                                                         @php
+                                                            $massage_types = old('massage_types') ? old('massage_types') : explode(',', @$listing->massage_types);
+                                                        @endphp
+                                                        @foreach($massageTypes as $mt)
+                                                        <option @selected(in_array($mt, $massage_types))>{{$mt}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('massage_types')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Business Description</label>
+                                                    <textarea class="form-control @error('about') is-invalid @enderror" name="about">{{ old('about') ? old('about') : @$listing->about }}</textarea>
+                                                    @error('about')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Service Type</label>
+                                                    <div class="custom-controls-stacked d-flex">
+                                                        @foreach (['Male to Female', 'Female to Male', 'Male to Male', 'Female to Female'] as $ics)
+                                                            <label class="custom-control custom-checkbox">
+                                                                @php
+                                                                    $intensiveCareService = old('service_type') ? old('service_type') : explode(',', @$listing->service_type);
+                                                                @endphp
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    name="service_type[{{ $ics }}]"
+                                                                    value="{{ $ics }}"
+                                                                    @checked(in_array($ics, $intensiveCareService))>
+                                                                <span
+                                                                    class="custom-control-label">{{ ucwords($ics) }}</span>
+                                                            </label>&nbsp;
+                                                        @endforeach
+                                                    </div>
+
+                                                    @error('service_type')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Set Timings</label>
+                                                    <select
+                                                        class="form-control custom-select nice-select  required @error('timing') is-invalid @enderror"
+                                                        name="timing">
+                                                        @foreach (['9Am - 5Pm', '8Am - 4Pm', '10Am - 6Pm', '10Am - 7Pm', '9Am - 10Pm', '11Am - 9Pm', 'Other'] as $key => $time)
+                                                            <option {{ $key == 0 ? 'selected' : '' }}>
+                                                                {{ $time }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('timing')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label text-dark">Set Days</label>
+                                                    <select
+                                                        class="form-control custom-select nice-select  required @error('days') is-invalid @enderror"
+                                                        name="days">
+                                                        <option selected="selected"> Mon - Fri </option>
+                                                        <option> Mon- Sat </option>
+                                                        <option> Mon- Sun </option>
+                                                        <option> Mon, Tues, Wed</option>
+                                                        <option>Thurs, Fri, Sat</option>
+                                                        <option> Tues, Fri, Sun</option>
+                                                        <option> Other </option>
+                                                    </select>
+                                                    @error('days')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="input-group file-browser">
+                                                    <label class="form-label text-dark">Profile Image</label>
+                                                    <input type="file"
+                                                        class="dropify   @error('profile_pic') is-invalid @enderror"
+                                                        data-height="180" name="profile_pic" multiple />
+                                                    @error('profile_pic')
+                                                        <span class="invalid-feedback d-block" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    @if ($listing)
+                                                        <img src="{{ asset('uploads/listing/' . $listing->profile_pic) }}"
+                                                            height="180" width="180" class="mt-4">
+                                                    @endif
+                                                </div>
+
+                                                <div class="input-group file-browser">
+                                                    <label class="form-label text-dark">Galary Image</label>
+                                                    <input class="upload  @error('galary') is-invalid @enderror"
+                                                        type="file" name="galary" accept=".jpg, .png" multiple>
+
+                                                    @error('galary')
+                                                        <span class="invalid-feedback d-block" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    @if ($listing)
+                                                        <img src="{{ asset('uploads/listing/' . $listing->profile_pic) }}"
+                                                            height="180" width="180" class="mt-4">
+                                                    @endif
+                                                </div>
+
+
+                                                <div class="input-group mt-4">
+                                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="form-label text-dark">Phone Number</label>
-                                                <input type="number" class="form-control  required"
-                                                    placeholder="Enter Number">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label text-dark">Address</label>
-                                                <textarea class="form-control  required" name="example-textarea-input" rows="3" placeholder="text here.."></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label text-dark">Set Timings</label>
-                                                <select class="form-control custom-select nice-select  required">
-                                                    <option selected="selected"> 9Am - 5Pm </option>
-                                                    <option>8Am - 4Pm</option>
-                                                    <option>10Am - 6Pm</option>
-                                                    <option>10Am - 7Pm</option>
-                                                    <option>9Am - 10Pm</option>
-                                                    <option>11Am - 9Pm</option>
-                                                    <option>Other</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label text-dark">Set Days</label>
-                                                <select class="form-control custom-select nice-select  required">
-                                                    <option selected="selected"> Mon - Fri </option>
-                                                    <option> Mon- Sat </option>
-                                                    <option> Mon- Sun </option>
-                                                    <option> Mon, Tues, Wed</option>
-                                                    <option>Thurs, Fri, Sat</option>
-                                                    <option> Tues, Fri, Sun</option>
-                                                    <option> Other </option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group file-browser">
-                                                <label class="form-label text-dark">Profile Image</label>
-                                                <input type="file" class="dropify" data-height="180" />
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="post-content {{ strtolower($category->name) == 'clinic' || strtolower($category->name) == 'clinics' ? 'active' : '' }}"
                                         id="clinic">
@@ -1242,6 +1747,30 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
+                                                <label class="form-label text-dark">Latitude</label>
+                                                <input type="number"
+                                                    class="form-control  required @error('latitude') is-invalid @enderror"
+                                                    name="latitude" placeholder="Latitude"
+                                                    value="{{ $listing ? $listing->latitude : old('latitude') }}">
+                                                @error('latitude')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label text-dark">Longitude </label>
+                                                <input type="number"
+                                                    class="form-control  required @error('longitude') is-invalid @enderror"
+                                                    name="longitude" placeholder="Longitude"
+                                                    value="{{ $listing ? $listing->longitude : old('longitude') }}">
+                                                @error('longitude')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="form-label text-dark">Phone Number</label>
                                                 <input type="number"
                                                     class="form-control  required @error('phone') is-invalid @enderror"
@@ -1291,7 +1820,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label text-dark">Web Site</label>
-                                                <input type="text"
+                                                <input type="url"
                                                     class="form-control  required @error('website') is-invalid @enderror"
                                                     name="website" placeholder="Enter Website"
                                                     value="{{ $listing ? $listing->website : old('website') }}">
@@ -1382,8 +1911,10 @@
                                                             @endphp
                                                             <input type="checkbox" class="custom-control-input"
                                                                 name="intensive_care_services[{{ $ics }}]"
-                                                                value="{{ $ics }}" @checked(in_array($ics, $intensiveCareService))>
-                                                            <span class="custom-control-label">{{ ucwords($ics) }}</span>
+                                                                value="{{ $ics }}"
+                                                                @checked(in_array($ics, $intensiveCareService))>
+                                                            <span
+                                                                class="custom-control-label">{{ ucwords($ics) }}</span>
                                                         </label>&nbsp;
                                                     @endforeach
                                                 </div>
@@ -1474,8 +2005,10 @@
                                                         <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 name="radiodiagnosis[{{ $ics }}]"
-                                                                value="{{ $ics }}" @checked(in_array($ics, $radiodiagnosis))>
-                                                            <span class="custom-control-label">{{ $icsValue }}</span>
+                                                                value="{{ $ics }}"
+                                                                @checked(in_array($ics, $radiodiagnosis))>
+                                                            <span
+                                                                class="custom-control-label">{{ $icsValue }}</span>
                                                         </label>&nbsp;
                                                     @endforeach
                                                 </div>
@@ -1604,8 +2137,8 @@
                                         <div class="p-2 border">
                                             <div class="upload-images d-flex">
                                                 <div>
-                                                    <img src="{{ asset('assets/images/media/0-3.jpg') }}" alt="img"
-                                                        class="w73 h73 border p-0">
+                                                    <img src="{{ asset('assets/images/media/0-3.jpg') }}"
+                                                        alt="img" class="w73 h73 border p-0">
                                                 </div>
                                                 <div class="ml-3 mt-2">
                                                     <h6 class="mb-0 mt-3 font-weight-bold">img_01</h6>
@@ -1642,6 +2175,13 @@
     <script src="{{ asset('assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
+
     <script src="{{ asset('assets/js/formelements.js') }}"></script>
     <script src="{{ asset('assets/js/myCustom.js') }}"></script>
 
@@ -1654,6 +2194,17 @@
 
     <script>
         $(document).ready(function() {
+
+
+            $(".massage").select2({
+                closeOnSelect: false,
+                placeholder: "Massage Therapy",
+                allowHtml: true,
+                allowClear: true,
+                tags: true,
+                scrollAfterSelect: false,
+
+            });
 
             $('input[name="degree"]').tagsinput({
                 trimValue: true,
@@ -1669,13 +2220,21 @@
 
         });
 
-        $("#addEducation").on('click',function(){
+        $("#addEducation").on('click', function() {
             var education = $("#educationRow").clone();
-             education.find('.col-md-3').last().remove();
-             education.append(`<div class="col-md-3">
+            education.find('.col-md-3').last().remove();
+            education.append(`<div class="col-md-3">
                                 <button  onclick="$(this).parent().parent().remove()"type="button" class="btn btn-outline-danger btn-pill"><i class="fa fa-trash"></i></button>
                               </div>`);
             $('#educationAppendSection').append(education);
+        });
+        $("#addAssociation").on('click', function() {
+            var association = $("#associationRow").clone();
+            association.find('.col-md-3').last().remove();
+            association.append(`<div class="col-md-3">
+                                <button  onclick="$(this).parent().parent().remove()"type="button" class="btn btn-outline-danger btn-pill"><i class="fa fa-trash"></i></button>
+                              </div>`);
+            $('#associationAppendSection').append(association);
         });
     </script>
 @endsection

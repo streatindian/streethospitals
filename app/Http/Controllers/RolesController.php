@@ -54,7 +54,7 @@ class RolesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            // 'permission' => 'required',
         ]);
 
         $role = Role::create(['name' => str_replace(' ','_',strtolower(trim($request->get('name'))))]);
