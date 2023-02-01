@@ -29,10 +29,11 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
     protected function redirectTo()
     {
+        // dd(auth()->user()->roles());
         if (auth()->user()->hasRole('super_admin')) {
             return 'admin/home';
-        }else{
-
+        }else if (auth()->user()->hasRole('provider')) {
+            return 'admin/home';
         }
         return '/';
     }
@@ -49,6 +50,6 @@ class LoginController extends Controller
     public function user_login(){
         return view('front.user.login');
     }
-    
+
 
 }

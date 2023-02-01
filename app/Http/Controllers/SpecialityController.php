@@ -17,7 +17,7 @@ class SpecialityController extends Controller
      */
     public function index()
     {
-
+        if (!auth()->user()->can('speciality_list')) abort(401);
         return view('admin.pages.speciality.index');
     }
 
@@ -28,6 +28,7 @@ class SpecialityController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('speciality_add')) abort(401);
         $data['speciality'] = null;
         return view('admin.pages.speciality.form',$data);
     }
@@ -40,7 +41,7 @@ class SpecialityController extends Controller
      */
     public function store(Request $request)
     {
-
+        if (!auth()->user()->can('speciality_add')) abort(401);
         $this->validate($request, ['name' => 'required|unique:specialities,name,'.$request->id, 'status' => 'required']);
 
         $matchThese = ['id' => $request->id];
@@ -71,6 +72,7 @@ class SpecialityController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('speciality_edit')) abort(401);
         $data['speciality'] = DB::table($this->table)->whereId($id)->first();
         return view('admin.pages.speciality.form',$data);
     }
@@ -95,6 +97,7 @@ class SpecialityController extends Controller
      */
     public function destroy($id)
     {
+        if (!auth()->user()->can('speciality_delete')) abort(401);
         DB::table($this->table)->whereId($id)->delete();
         Session::flash('success','Record Delete Successfully');
         return redirect()->route('speciality.index');
@@ -102,20 +105,22 @@ class SpecialityController extends Controller
 
     public function listing(Request $request)
     {
+        if (!auth()->user()->can('speciality_list')) abort(401);
         if ($request->ajax()) {
             $data = DB::table($this->table)->select('id', 'name', 'status')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $editUrl = $deleteUrl = route('speciality.edit', $row->id);
-                    // $deleteUrl = route('speciality.destroy',$row->id);
-                    $action = '<div>';
-
-                    $action .= '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>&nbsp;';
-                    $action .= '<form action="' . route('speciality.destroy', $row->id) . '" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="'.csrf_token() .'">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form';
+                    $editUrl =  route('speciality.edit', $row->id);
+                    $deleteUrl = route('speciality.destroy', $row->id);
+                    $action = '<div style="display:flex;">';
+                    if (auth()->user()->can('speciality_edit')) {
+                        $action .= view('components.edit', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('speciality_delete')) {
+                        $action .= view('components.delete', ['url' => $deleteUrl]);
+                    }
+                    $action .= '</div>';
                     return $action;
                 })
                 ->escapeColumns([])

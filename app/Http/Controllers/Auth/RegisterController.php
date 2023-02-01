@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required','numeric'],
+            'phone' => ['required', 'numeric', 'unique:users,phone'],
         ]);
     }
 
@@ -68,13 +68,15 @@ class RegisterController extends Controller
         $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phonr' => $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
         $user->syncRoles('customer');
         return $user;
     }
 
-    public function user_register(){
+    public function user_register()
+    {
         return view('front.user.register');
     }
 }

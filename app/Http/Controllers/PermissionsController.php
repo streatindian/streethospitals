@@ -41,10 +41,10 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:users,name'
+            'name' => 'required|unique:permissions,name'
         ]);
-
-        Permission::create($request->only('name'));
+        $name = str_replace(' ','_',strtolower($request->name));
+        Permission::create(['name'=>$name]);
 
         return redirect()->route('permissions.index')
             ->withSuccess(__('Permission created successfully.'));
@@ -75,8 +75,8 @@ class PermissionsController extends Controller
         $request->validate([
             'name' => 'required|unique:permissions,name,' . $permission->id
         ]);
-
-        $permission->update($request->only('name'));
+        $name = str_replace(' ','_',strtolower($request->name));
+        $permission->update(['name'=>$name]);
 
         return redirect()->route('permissions.index')
             ->withSuccess(__('Permission updated successfully.'));
@@ -103,18 +103,14 @@ class PermissionsController extends Controller
             $data = Permission::all();
             return DataTables::of($data)->addIndexColumn()
                 ->editColumn('name', function ($row) {
-                    return '<span style="text-transform:capitalize;">' . str_replace('.', ' ', $row->name) . '</span>';
+                    return '<span style="text-transform:capitalize;">' . str_replace('_', ' ', $row->name) . '</span>';
                 })
                 ->addColumn('action', function ($row) {
                     $action = '<div style="display:flex;">';
-                    // $action .=    '<a class="btn btn-info btn-sm"
-                    //     href="' . route('permissions.show', $row->id) . '">Show</a>&nbsp;';
-                    $action .=    '<a class="btn btn-primary btn-sm" href="' . route('permissions.edit', $row->id) . '">Edit</a>&nbsp;';
-                    $action .= '<form action="' . route('permissions.destroy', $row->id) . '" method="POST  ">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form';
+                    $deleteUrl = route('permissions.destroy', $row->id);
+                    $editUrl = route('permissions.edit', $row->id);
+                    $action .=    view('components.edit',['url'=>$editUrl]);
+                    $action .= view('components.delete',['url'=>$deleteUrl]);
                     return $action;
                 })
 

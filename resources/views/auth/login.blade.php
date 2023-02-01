@@ -53,9 +53,6 @@
                             </button>
 
                         </div>
-                        <div class="text-center  mt-3 text-dark">
-                            Don't have account yet? <a href="{{ route('register') }}">SignUp</a>
-                        </div>
                     </form>
                 </div>
             </div>

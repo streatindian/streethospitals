@@ -225,7 +225,7 @@
                         <a class="dropdown-item" href="editprofile.html">
                             <i class="dropdown-icon  icon icon-settings"></i> Account Settings
                         </a>
-                        <a class="dropdown-item" href="{{ route('logout.perform') }}">
+                        <a class="dropdown-item" href="{{ route('logout.user') }}">
                             <i class="dropdown-icon icon icon-power"></i> Log out
                         </a>
                     </div>

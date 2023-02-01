@@ -10,7 +10,7 @@
             </div>
             <div class="user-info">
                 <h2 class="text-capitalize">{{ auth()->user()->name }}</h2>
-                {{-- <span>{{ auth()->user()->roles->first()->name}}</span> --}}
+                <span>{{ auth()->check()?(auth()->user()->roles()->first()?auth()->user()->roles()->first()->name:''):null }}</span>
             </div>
         </div>
     </div>

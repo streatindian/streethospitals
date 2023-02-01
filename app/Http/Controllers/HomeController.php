@@ -35,11 +35,17 @@ class HomeController extends Controller
      */
     public function perform()
     {
+         $userRole = auth()->user()->roles()->first();
+
         Session::flush();
 
         Auth::logout();
+        if(@$userRole->name == 'super_admin' ){
+             return redirect()->route('login');
+        }else{
+            return redirect()->route('user.login');
+        }
 
-        return redirect()->route('login');
     }
 
     public function get_state(Request $request){

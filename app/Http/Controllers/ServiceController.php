@@ -19,6 +19,7 @@ class ServiceController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->can('service_list')) abort(401);
         $data['service'] = Service::all();
         return view('admin.pages.service.index', $data);
     }
@@ -30,6 +31,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('service_add')) abort(401);
         $data['service'] = Service::all();
         return view('admin.pages.service.form', $data);
     }
@@ -42,6 +44,11 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->id)
+            if (!auth()->user()->can('service_edit')) abort(401);
+            else
+            if (!auth()->user()->can('service_add')) abort(401);
+
         $this->validate($request, [
             'name' => 'required|unique:services,name,' . $request->id,
             'slug' => 'required|unique:services,slug,' . $request->id,
@@ -122,6 +129,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
+        if (!auth()->user()->can('service_delete')) abort(401);
         Service::whereId($id)->delete();
         Session::flash('success', 'Record Delete Successfully');
         return redirect()->route('service.index');
@@ -129,6 +137,7 @@ class ServiceController extends Controller
 
     public function listing(Request $request)
     {
+        if (!auth()->user()->can('service_list')) abort(401);
         if ($request->ajax()) {
             $data = Service::all();
             return DataTables::of($data)->addIndexColumn()
@@ -149,14 +158,17 @@ class ServiceController extends Controller
                 ->addColumn('action', function ($row) {
                     $editUrl = $deleteUrl = route('service.edit', $row->id);
                     // $deleteUrl = route('speciality.destroy',$row->id);
-                    $action = '<div>';
 
-                    $action .= '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>&nbsp;';
-                    $action .= '<form action="' . route('service.destroy', $row->id) . '" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form';
+                    $editUrl =  route('service.edit', $row->id);
+                    $deleteUrl = route('service.destroy', $row->id);
+                    $action = '<div style="display:flex;">';
+                    if (auth()->user()->can('service_edit')) {
+                        $action .= view('components.edit', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('service_delete')) {
+                        $action .= view('components.delete', ['url' => $deleteUrl]);
+                    }
+                    $action .= '</div>';
                     return $action;
                 })
 

@@ -478,7 +478,7 @@
                     <ul class="custom">
                         @if(!auth()->check())
                         <li>
-                            <a class="text-dark" href="register.html"><i class="fa fa-user mr-1"></i>
+                            <a class="text-dark" href="{{route('user.register')}}"><i class="fa fa-user mr-1"></i>
                                 <span>Register</span></a>
                         </li>
                         <li>
@@ -498,7 +498,7 @@
                                         class="dropdown-icon icon icon-bell"></i> Notifications</a>
                                 <a class="dropdown-item" href="mydash.html"><i
                                         class="dropdown-icon icon icon-settings"></i> Account Settings</a>
-                                <a class="dropdown-item" href="#"><i
+                                <a class="dropdown-item" href="{{route('logout.user')}}"><i
                                         class="dropdown-icon icon icon-power"></i> Log out</a>
                             </div>
                         </li>

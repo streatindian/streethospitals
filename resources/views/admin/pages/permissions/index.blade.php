@@ -4,7 +4,7 @@
     <div class="app-content  my-3 my-md-5">
         <div class="side-app">
             <div class="page-header">
-                <h4 class="page-title">Permission</h4>
+                <h4 class="page-title">Permission <a href="{{route('permissions.create')}}" class="btn btn-primary btn-sm float-end">Add New Permission</a></h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('permissions.index') }}">Permission</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Permission</li>

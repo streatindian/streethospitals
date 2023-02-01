@@ -34,19 +34,24 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['permission:home_listing']);
         Route::resource('category', CategoryController::class);
-        Route::post('category/listing', [CategoryController::class, 'listing'])->name('category.listing');
+        Route::post('category/listing', [CategoryController::class, 'listing'])->name('category.listing')->middleware(['permission:category_listing']);;
         Route::resource('service', ServiceController::class);
-        Route::post('service/listing', [ServiceController::class, 'listing'])->name('service.listing');
+        Route::post('service/listing', [ServiceController::class, 'listing'])->name('service.listing')->middleware(['permission:permission_listing']);
         Route::resource('speciality', SpecialityController::class);
-        Route::get('speciality/listing', [SpecialityController::class, 'listing'])->name('speciality.listing');
+        Route::get('speciality/listing', [SpecialityController::class, 'listing'])->name('speciality.listing')->middleware(['permission:speciality_listing']);
         Route::resource('user', UserController::class);
-        Route::post('user/listing', [UserController::class, 'listing'])->name('users.listing');
+        Route::post('user/listing', [UserController::class, 'listing'])->name('users.listing')->middleware(['permission:user_listing']);;
         Route::resource('roles', RolesController::class);
-        Route::post('role/listing', [RolesController::class, 'listing'])->name('roles.listing');
+        Route::post('role/listing', [RolesController::class, 'listing'])->name('roles.listing')->middleware(['permission:roles_listing']);
         Route::resource('permissions', PermissionsController::class);
-        Route::post('permissions/listing', [PermissionsController::class, 'listing'])->name('permissions.listing');
+        Route::post('permissions/listing', [PermissionsController::class, 'listing'])->name('permissions.listing')->middleware(['permission:permission_listing']);
+        Route::get('provider/index',[ProviderController::class,'admin_provider_listing'])->name('admin.provider.index')->middleware(['permission:provider_listing']);
+        Route::post('provider/index', [ProviderController::class, 'admin_provider_listing'])->name('admin.provider.listing.list')->middleware(['permission:provider_listing']);
+        Route::get('provider/listing/status/{id}', [ProviderController::class, 'status'])->name('admin.provider.listing.status')->middleware(['permission:provider_status']);
+        Route::get('provider/listing/view/{id}', [ProviderController::class, 'admin_view'])->name('admin.provider.listing.view')->middleware(['permission:provider_view']);
+
     });
 });
 Route::get('register/partner', [PartnerController::class, 'register'])->name('register.partner');
@@ -69,7 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('listing/destroy/{listing_id}', [ProviderController::class, 'destroy'])->name('provider.listing.destroy');
 
     });
-    Route::get('/logout', [HomeController::class, 'perform'])->name('logout.perform');
+    Route::get('/logout', [HomeController::class, 'perform'])->name('logout.user');
 });
 Route::get('get-states', [HomeController::class, 'get_state'])->name('get.state');
 Route::get('get-city', [HomeController::class, 'get_city'])->name('get.city');

@@ -43,7 +43,7 @@ class Listing extends Model
         "about",
         "gender","degree","specialization","state_medical_council","registration_number","birth_date","birth_month",
         "birth_year","blood_group","clinic_hospital_name","practicing_since_year",
-        "pincode","massage_types","service_type","latitude","longitude"
+        "pincode","massage_types","service_type","latitude","longitude","status"
     ];
 
     public function course(){

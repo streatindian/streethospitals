@@ -19,6 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('category_list')) abort(401);
+
         $data['category'] = Category::all();
         return view('admin.pages.category.index', $data);
     }
@@ -30,6 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('category_add')) abort(401);
         $data['category'] = Category::all();
         $data['category_detail'] = null;
         return view('admin.pages.category.form', $data);
@@ -43,6 +46,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->id)
+            if (!auth()->user()->can('category_edit')) abort(401);
+            else
+            if (!auth()->user()->can('category_add')) abort(401);
+
+
         $rule = [
             'name' => 'required|unique:categories,name,' . $request->id,
             'slug' => 'required|unique:categories,slug,' . $request->id,
@@ -54,7 +63,7 @@ class CategoryController extends Controller
         }
 
 
-        $this->validate($request,$rule);
+        $this->validate($request, $rule);
         $uploadDir    = public_path('uploads/category');
         $input = $request->all();
 
@@ -80,7 +89,7 @@ class CategoryController extends Controller
             unset($input['id']);
         }
         $category = Category::updateOrCreate($matchThese, $input);
-        return redirect()->route('category.index')->with('success', 'Record '.($request->id?'Update':'Add').' Successfully');
+        return redirect()->route('category.index')->with('success', 'Record ' . ($request->id ? 'Update' : 'Add') . ' Successfully');
     }
 
     /**
@@ -102,6 +111,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('category_edit')) abort(401);
         $data['category'] = Category::all();
         $data['category_detail'] = Category::find($id);
         return view('admin.pages.category.form', $data);
@@ -127,6 +137,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if (!auth()->user()->can('category_delete')) abort(401);
         Category::whereId($id)->delete();
         Session::flash('success', 'Record Delete Successfully');
         return redirect()->route('category.index');
@@ -155,16 +166,16 @@ class CategoryController extends Controller
                     return @$row->category->name;
                 })
                 ->addColumn('action', function ($row) {
-                    $editUrl = $deleteUrl = route('category.edit', $row->id);
-                    // $deleteUrl = route('speciality.destroy',$row->id);
+                    $editUrl =  route('category.edit', $row->id);
+                    $deleteUrl = route('category.destroy', $row->id);
                     $action = '<div style="display:flex;">';
-
-                    $action .= '<div><a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a></div>&nbsp;';
-                    $action .= '<div><form action="' . route('category.destroy', $row->id) . '" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form></div></div>';
+                    if (auth()->user()->can('category_edit')) {
+                        $action .= view('components.edit', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('category_delete')) {
+                        $action .= view('components.delete', ['url' => $deleteUrl]);
+                    }
+                    $action .= '</div>';
                     return $action;
                 })
 

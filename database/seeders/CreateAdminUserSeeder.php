@@ -25,7 +25,7 @@ class CreateAdminUserSeeder extends Seeder
             'password' => Hash::make('admin@4902')
         ]);
 
-        $role = Role::create(['name' => 'super_admin']);
+        $role = Role::updateOrCreate(['name'=>'super_admin'],['name' => 'super_admin']);
 
         $permissions = Permission::pluck('id','id')->all();
 

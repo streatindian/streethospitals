@@ -25,6 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('user_list')) abort(401);
         return view('admin.pages.user.index');
     }
 
@@ -35,6 +36,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('user_add')) abort(401);
         $data['user'] = null;
         $data['country'] = Country::all();
         $data['roles'] = Role::all();
@@ -49,7 +51,7 @@ class UserController extends Controller
      */
     public function store(User $user, StoreUserRequest $request)
     {
-
+        if (!auth()->user()->can('user_add')) abort(401);
         //For demo purposes only. When creating user or inviting a user
         // you should create a generated random password and email it to the user
         $user->create(array_merge($request->validated(), [
@@ -80,6 +82,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if (!auth()->user()->can('user_edit')) abort(401);
         // dd(State::where('country_id', $user->country)->get());
         return view('admin.pages.user.edit', [
             'user' => $user,
@@ -100,6 +103,7 @@ class UserController extends Controller
      */
     public function update(User $user, UpdateUserRequest $request)
     {
+        if (!auth()->user()->can('user_edit')) abort(401);
         // dd(request()->route('user'));
         // dd($request->all());
         // dd($request->validated());
@@ -119,6 +123,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if (!auth()->user()->can('user_delete')) abort(401);
         $user->delete();
 
         return redirect()->route('users.index')
@@ -127,7 +132,7 @@ class UserController extends Controller
 
     public function listing(Request $request)
     {
-
+        if (!auth()->user()->can('user_list')) abort(401);
         if ($request->ajax()) {
             $data = DB::table($this->table)->get();
             return DataTables::of($data)->addIndexColumn()
@@ -135,16 +140,18 @@ class UserController extends Controller
                     return $row->status ? 'Active' : 'Inactive';
                 })
                 ->addColumn('action', function ($row) {
-                    $editUrl = $deleteUrl = route('user.edit', $row->id);
-                    // $deleteUrl = route('speciality.destroy',$row->id);
+                    $editUrl =  route('user.edit', $row->id);
+                    $deleteUrl = route('user.destroy',$row->id);
                     $action = '<div style="display:flex;">';
 
-                    $action .= '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>&nbsp;';
-                    $action .= '<form action="' . route('user.destroy', $row->id) . '" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form';
+                    $action = '<div style="display:flex;">';
+                    if (auth()->user()->can('user_edit')) {
+                        $action .= view('components.edit', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('user_delete')) {
+                        $action .= view('components.delete', ['url' => $deleteUrl]);
+                    }
+                    $action .= '</div>';
                     return $action;
                 })
                 ->escapeColumns([])

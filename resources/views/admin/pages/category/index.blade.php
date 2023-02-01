@@ -9,8 +9,8 @@
     <div class="app-content  my-3 my-md-5">
         <div class="side-app">
             <div class="page-header">
-                <h1 class="page-title">Category <a class="btn btn-sm btn-primary text-white"
-                        href="{{ route('category.create') }}">Add Category</a></h1>
+                <h1 class="page-title">Category @can('category_add')<a class="btn btn-sm btn-primary text-white"
+                        href="{{ route('category.create') }}">Add Category</a> @endcan </h1>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Category</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List</li>

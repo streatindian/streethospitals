@@ -12,12 +12,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use DataTables;
+use Exception;
 
 class ProviderController extends Controller
 {
     public function dashboard()
     {
         // return view('provider.dashboard');
+        return redirect()->route('provider.listing.index');
     }
     public function index()
     {
@@ -138,7 +140,7 @@ class ProviderController extends Controller
             $input['service_type'] = implode(',', $request->service_type);
         }
 
-// dd($input);
+        // dd($input);
         foreach (['profile_pic'] as $file) {
             if ($request->hasFile($file)) {
                 $ImgValue     = $request->file($file);
@@ -198,7 +200,7 @@ class ProviderController extends Controller
             }
         }
         $user = auth()->user();
-        $user->syncRoles($request->get('role'));
+        $user->syncRoles('provider');
         return redirect()->route('provider.listing.index')->with('success', 'Listing ' . ($request->id ? 'Edit' : 'Add') . ' Successfully');
     }
 
@@ -255,5 +257,64 @@ class ProviderController extends Controller
         // dd($id);
         Listing::where('id', $id)->delete();
         return redirect()->back()->with('success', 'Record Delete Successfully.');
+    }
+
+    public function admin_provider_listing(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Listing::where('user_id', auth()->user()->id)->get();
+            return DataTables::of($data)->addIndexColumn()
+                ->editColumn('profile_pic', function ($row) {
+                    $imgUrl = asset('uploads/listing/' . $row->profile_pic);
+                    if ($row->profile_pic)
+                        return '<img src="' . $imgUrl . '" height="50" width="50">';
+                    else return '';
+                })
+                ->editColumn('status', function ($row) {
+                    $status =  $row->status == 'active' ? 'Active' : 'Inactive';
+                    $alertClass =  $row->status == 'active' ? 'success' : 'danger';
+                    return '<span class="label label-pill label-' . $alertClass . ' mt-2">' . $status . '</span>';
+                })
+                ->addColumn('action', function ($row) {
+                    $viewUrl  = route('admin.provider.listing.view', $row->id);
+                    $deleteUrl = route('provider.listing.destroy', $row->id);
+                    $statusUrl = route('admin.provider.listing.status', $row->id);
+                    $confirm = "onclick='return confirm(`Are You Sure!!`)'";
+                    $action = '<div style="display:flex;">';
+                    $action .= view('components.status', ['url' => $statusUrl]);
+                    $action .= view('components.view', ['url' => $viewUrl]);
+                    $action .= view('components.delete', ['url' => $deleteUrl]);
+                    return $action;
+                })
+                ->rawColumns(['status', 'actions'])
+                ->escapeColumns([])
+                ->make(true);
+        }
+        return view('admin.pages.provider.index');
+    }
+    public function status($id, $status = '')
+    {
+        try {
+            $listing = Listing::findOrFail($id);
+            $listing->status = $listing->status == 'active' ? 'inactive' : 'active';
+            $listing->save();
+            return redirect()->back()->with('success', 'Status Change Successfully.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Status Not Change.');
+        }
+    }
+    public function admin_view(Request $request, $id)
+    {
+        // $category = request()->query('category');
+        // if (!$category) return redirect()->back()->with('error', 'Please Select Category First.');
+        // $category_id = decrypt($category);
+        $listing = Listing::find($id);
+        $data['listing'] = $listing;
+        $data['category'] = Category::find($listing->category_id);
+        $data['category_list'] = Category::all();
+        $data['service'] = Service::all();
+        $data['country'] = Country::all();
+        // dd($data['category']);
+        return view('admin.pages.provider.form', $data);
     }
 }

@@ -21,7 +21,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input value="{{ $permission->name }}" type="text" class="form-control"
+                                        <input value="{{ ucwords(str_replace('_',' ',$permission->name)) }}" type="text" class="form-control"
                                             name="name" placeholder="Name" required>
 
                                         @if ($errors->has('name'))
