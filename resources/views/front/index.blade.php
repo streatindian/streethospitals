@@ -1,7 +1,7 @@
 @extends('layouts.front-default')
 @section('content')
     <!--Section-->
-    @include('front.includes.banner')
+    @include('front.includes.banner',['category',$category])
     <!--/Section-->
 
     <!--Section-->

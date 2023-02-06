@@ -21,8 +21,12 @@
 
         </li>
         <li class="slide">
-            <a class="side-menu__item"  href="{{ route('category.index') }}"><i
-                    class="side-menu__icon fa fa-list"></i><span class="side-menu__label">Category</span></a>
+            <a class="side-menu__item" data-toggle="slide" href="#"><i
+                    class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">Category </span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{{route('category.index',['type'=>'listing'])}}">Listing</a></li>
+                <li><a class="slide-item" href="{{route('category.index',['type'=>'blog'])}}">Blog</a></li>
+            </ul>
         </li>
         <li class="slide">
             <a class="side-menu__item"  href="{{ route('service.index') }}"><i
@@ -45,10 +49,28 @@
             </ul>
         </li>
         <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i
+                    class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">CMS </span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{{route('blog.index')}}">Blog</a></li>
+                <li><a class="slide-item" href="{{route('page.index')}}">Page</a></li>
+            </ul>
+        </li>
+        <li class="slide">
             <a class="side-menu__item"  href="{{ route('admin.provider.index') }}"><i
                     class="side-menu__icon fa fa-handshake-o"></i><span class="side-menu__label">Providers </span></a>
         </li>
-
+        <li class="slide">
+            <a class="side-menu__item"  href="{{ route('admin.menu.index') }}"><i
+                    class="side-menu__icon fa fa-list"></i><span class="side-menu__label">Menu Builder</span></a>
+        </li>
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i
+                    class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">Settings</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{{route('setting.index')}}">Settings</a></li>
+            </ul>
+        </li>
 
 
         <div class="app-sidebar-footer">

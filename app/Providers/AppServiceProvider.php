@@ -8,6 +8,8 @@ use Illuminate\Routing\ResourceRegistrar as BaseResourceRegistrar;
 // use Illuminate\Routing\ResourceRegistrar;
 // use App\ResourceRegistrar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $setting = DB::table('settings')->get();
+        $settingArray = [];
+        foreach($setting as $s){
+            $settingArray[$s->option] = $s->value;
+        }
+        View::share('setting', $settingArray);
         // $this->app->bind(BaseResourceRegistrar::class, ResourceRegistrar::class);
     }
 }

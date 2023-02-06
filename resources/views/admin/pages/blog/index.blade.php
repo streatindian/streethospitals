@@ -8,31 +8,18 @@
     <div class="app-content  my-3 my-md-5">
         <div class="side-app">
             <div class="page-header">
-                <h1 class="page-title text-capitalize">{{ request()->query('type') }} Category @can('category_add')
+                <h1 class="page-title text-capitalize">{{ request()->query('type') }} Blog @can('blog_add')
                         <a class="btn btn-sm btn-primary text-white"
-                         href="{{ route('category.create', ['type' => request()->query('type')]) }}">Add Category</a>
+                         href="{{ route('blog.create', ['type' => request()->query('type')]) }}">Add Blog</a>
                     @endcan
                 </h1>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Category</a></li>
+                    <li class="breadcrumb-item"><a href="#">Blog</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List</li>
                 </ol>
             </div>
             <div class="row ">
                 <div class="col-lg-12">
-                    {{-- <div class="panel panel-primary">
-                        <div class=" ">
-                            <div class="user-tabs mb-4">
-                                <!-- Tabs -->
-                                <ul class="nav panel-tabs">
-                                    <li class=""><a href="#tab1" class="active" data-toggle="tab">All (1,737)</a>
-                                    </li>
-                                    <li><a href="#tab2" data-toggle="tab">Contributor (1,734)</a></li>
-                                    <li><a href="#tab3" data-toggle="tab">Register (3)</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> --}}
 
                     <div class="card">
                         <div class="card-body">
@@ -46,7 +33,7 @@
                                                 <th>Name</th>
                                                 <th>Thumbnail</th>
                                                 <th>Banner</th>
-                                                <th>Parent Category</th>
+                                                <th>Category</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -83,8 +70,8 @@
         startDate = new Date();
         startDate.setFullYear(startDate.getFullYear() - 1);
         $("[name=startDate]").val(startDate.toISOString().slice(0, 10));
-        datatableInit("myTable", "{{ route('category.listing',['type'=> request()->query('type')]) }}", ['name', 'thumbnail', 'banner_image',
-            'parent_id', 'status', 'action'
+        datatableInit("myTable", "{{ route('blog.listing') }}", ['name', 'thumbnail', 'banner_image',
+            'category_id', 'status', 'action'
         ], filter);
     </script>
 @endsection

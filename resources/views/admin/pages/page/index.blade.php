@@ -8,13 +8,13 @@
     <div class="app-content  my-3 my-md-5">
         <div class="side-app">
             <div class="page-header">
-                <h1 class="page-title text-capitalize">{{ request()->query('type') }} Category @can('category_add')
+                <h1 class="page-title text-capitalize">{{ request()->query('type') }} Page @can('page_add')
                         <a class="btn btn-sm btn-primary text-white"
-                         href="{{ route('category.create', ['type' => request()->query('type')]) }}">Add Category</a>
+                         href="{{ route('page.create', ['type' => request()->query('type')]) }}">Add Page</a>
                     @endcan
                 </h1>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Category</a></li>
+                    <li class="breadcrumb-item"><a href="#">Page</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List</li>
                 </ol>
             </div>
@@ -43,10 +43,9 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>Name</th>
+                                                <th>Title</th>
                                                 <th>Thumbnail</th>
                                                 <th>Banner</th>
-                                                <th>Parent Category</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -83,8 +82,7 @@
         startDate = new Date();
         startDate.setFullYear(startDate.getFullYear() - 1);
         $("[name=startDate]").val(startDate.toISOString().slice(0, 10));
-        datatableInit("myTable", "{{ route('category.listing',['type'=> request()->query('type')]) }}", ['name', 'thumbnail', 'banner_image',
-            'parent_id', 'status', 'action'
+        datatableInit("myTable", "{{ route('page.listing') }}", ['title', 'thumbnail', 'banner_image', 'status', 'action'
         ], filter);
     </script>
 @endsection

@@ -84,7 +84,7 @@ class PartnerController extends Controller
     }
 
     public function register(){
-        $data['category'] = Category::all();
+        $data['category'] = Category::where('type','listing')->get();
         return view('front.partner-register',$data);
     }
 }

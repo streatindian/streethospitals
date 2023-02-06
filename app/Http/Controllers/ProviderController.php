@@ -28,7 +28,7 @@ class ProviderController extends Controller
     }
     public function add()
     {
-        $data['category'] = Category::all();
+        $data['category'] = Category::where('type','listing')->get();
         return view('provider.pages.listing.add', $data);
     }
     public function form()
@@ -38,7 +38,7 @@ class ProviderController extends Controller
         $category_id = decrypt($category);
         $data['listing'] = null;
         $data['category'] = Category::find($category_id);
-        $data['category_list'] = Category::all();
+        $data['category_list'] = Category::where('type','listing')->get();
         $data['service'] = Service::all();
         $data['country'] = Country::all();
         return view('provider.pages.listing.form', $data);
@@ -245,7 +245,7 @@ class ProviderController extends Controller
         $listing = Listing::find($id);
         $data['listing'] = $listing;
         $data['category'] = Category::find($listing->category_id);
-        $data['category_list'] = Category::all();
+        $data['category_list'] = Category::where('type','listing')->get();
         $data['service'] = Service::all();
         $data['country'] = Country::all();
         // dd($data['category']);
@@ -261,6 +261,7 @@ class ProviderController extends Controller
 
     public function admin_provider_listing(Request $request)
     {
+        if (!auth()->user()->can('provider_list')) abort(401);
         if ($request->ajax()) {
             $data = Listing::where('user_id', auth()->user()->id)->get();
             return DataTables::of($data)->addIndexColumn()
@@ -294,6 +295,7 @@ class ProviderController extends Controller
     }
     public function status($id, $status = '')
     {
+        if (!auth()->user()->can('provider_status')) abort(401);
         try {
             $listing = Listing::findOrFail($id);
             $listing->status = $listing->status == 'active' ? 'inactive' : 'active';
@@ -305,13 +307,14 @@ class ProviderController extends Controller
     }
     public function admin_view(Request $request, $id)
     {
+        if (!auth()->user()->can('provider_view')) abort(401);
         // $category = request()->query('category');
         // if (!$category) return redirect()->back()->with('error', 'Please Select Category First.');
         // $category_id = decrypt($category);
         $listing = Listing::find($id);
         $data['listing'] = $listing;
         $data['category'] = Category::find($listing->category_id);
-        $data['category_list'] = Category::all();
+        $data['category_list'] = Category::where('type','listing')->get();
         $data['service'] = Service::all();
         $data['country'] = Country::all();
         // dd($data['category']);

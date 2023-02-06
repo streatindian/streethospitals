@@ -2,59 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-
-use DataTables;
+use App\Models\Page;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+
+use DataTables;
+
+
+class PageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        if (!auth()->user()->can('category_list')) abort(401);
+        if (!auth()->user()->can('page_list')) abort(401);
 
-        $data['category'] = Category::where('type', 'listing')->get();
-        return view('admin.pages.category.index', $data);
+        return view('admin.pages.page.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        if (!auth()->user()->can('category_add')) abort(401);
-        $data['category'] = Category::where('type', 'listing')->get();
-        $data['category_detail'] = null;
-        return view('admin.pages.category.form', $data);
+        if (!auth()->user()->can('page_add')) abort(401);
+        $data['page_detail'] = null;
+        return view('admin.pages.page.form', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if ($request->id)
-            if (!auth()->user()->can('category_edit')) abort(401);
+            if (!auth()->user()->can('page_edit')) abort(401);
             else
-            if (!auth()->user()->can('category_add')) abort(401);
+            if (!auth()->user()->can('page_add')) abort(401);
 
 
         $rule = [
-            'name' => 'required|unique:categories,name,' . $request->id,
-            'slug' => 'required|unique:categories,slug,' . $request->id,
+            'title' => 'required|unique:pages,title,' . $request->id,
+            'slug' => 'required|unique:pages,slug,' . $request->id,
             'thumbnail' => 'image|mimes:png,jpg|max:2048',
             'banner_image' => 'image|mimes:png,jpg|max:2048'
         ];
@@ -64,7 +46,7 @@ class CategoryController extends Controller
 
 
         $this->validate($request, $rule);
-        $uploadDir    = public_path('uploads/category');
+        $uploadDir    = public_path('uploads/page');
         $input = $request->all();
 
         foreach (['thumbnail', 'banner_image'] as $file) {
@@ -75,23 +57,22 @@ class CategoryController extends Controller
                 $ImgValue->move($uploadDir, $uploadedFile);
                 $input[$file] = $uploadedFile;
                 if ($request->id) {
-                    $category = Category::find($request->id);
-                    $oldFile = $uploadDir . '/' . $category->{$file};
+                    $page = Page::find($request->id);
+                    $oldFile = $uploadDir . '/' . $page->{$file};
                     if (File::exists($oldFile)) {
                         File::delete($oldFile);
                     }
                 }
             }
         }
-        $input['slug'] = Str::slug($input['name']);
+        $input['slug'] = Str::slug($input['title']);
         $matchThese = ['id' => $request->id];
         if (isset($input['id'])) {
             unset($input['id']);
         }
-        $category = Category::updateOrCreate($matchThese, $input);
-        return redirect()->route('category.index', ['type' => $request->type])->with('success', 'Record ' . ($request->id ? 'Update' : 'Add') . ' Successfully');
+        $page = Page::updateOrCreate($matchThese, $input);
+        return redirect()->route('page.index', ['type' => $request->type])->with('success', 'Record ' . ($request->id ? 'Update' : 'Add') . ' Successfully');
     }
-
     /**
      * Display the specified resource.
      *
@@ -111,10 +92,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        if (!auth()->user()->can('category_edit')) abort(401);
-        $data['category'] = Category::where('type', 'listing')->get();
-        $data['category_detail'] = Category::find($id);
-        return view('admin.pages.category.form', $data);
+        // if (!auth()->user()->can('page_edit')) abort(401);
+        // $data['page'] = Category::where('type', 'listing')->get();
+        // return view('admin.pages.category.form', $data);
     }
 
     /**
@@ -146,8 +126,7 @@ class CategoryController extends Controller
     public function listing(Request $request)
     {
         if ($request->ajax()) {
-            $type = request()->query('type') ? request()->query('type') : 'listing';
-            $data = Category::where('type', $type)->get();
+            $data = Page::get();
             return DataTables::of($data)->addIndexColumn()
                 ->editColumn('banner_image', function ($row) {
                     $imgUrl = asset('uploads/category/' . $row->banner_image);
@@ -164,13 +143,13 @@ class CategoryController extends Controller
                     return $row->status ? 'Active' : 'Inactive';
                 })
                 ->addColumn('action', function ($row) {
-                    $editUrl =  route('category.edit', $row->id);
-                    $deleteUrl = route('category.destroy', $row->id);
+                    $editUrl =  route('page.edit', $row->id);
+                    $deleteUrl = route('page.destroy', $row->id);
                     $action = '<div style="display:flex;">';
-                    if (auth()->user()->can('category_edit')) {
+                    if (auth()->user()->can('page_edit')) {
                         $action .= view('components.edit', ['url' => $editUrl]);
                     }
-                    if (auth()->user()->can('category_delete')) {
+                    if (auth()->user()->can('page_delete')) {
                         $action .= view('components.delete', ['url' => $deleteUrl]);
                     }
                     $action .= '</div>';

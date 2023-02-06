@@ -28,6 +28,7 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
+        if (!auth()->user()->can('role_list')) abort(401);
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
         return view('admin.pages.roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -40,6 +41,7 @@ class RolesController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('role_add')) abort(401);
         $permissions = Permission::get();
         return view('admin.pages.roles.create', compact('permissions'));
     }
@@ -52,6 +54,7 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('role_add')) abort(401);
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             // 'permission' => 'required',
@@ -72,6 +75,7 @@ class RolesController extends Controller
      */
     public function show(Role $role)
     {
+        if (!auth()->user()->can('role_view')) abort(401);
         $role = $role;
         $rolePermissions = $role->permissions;
 
@@ -86,6 +90,7 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
+        if (!auth()->user()->can('role_edit')) abort(401);
         $role = $role;
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
@@ -102,6 +107,7 @@ class RolesController extends Controller
      */
     public function update(Role $role, Request $request)
     {
+        if (!auth()->user()->can('role_edit')) abort(401);
         $this->validate($request, [
             'name' => 'required',
             'permission' => 'required',
@@ -123,14 +129,15 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
+        if (!auth()->user()->can('role_delete')) abort(401);
         $role->delete();
-
         return redirect()->route('roles.index')
             ->with('success', 'Role deleted successfully');
     }
 
     public function listing(Request $request)
     {
+        if (!auth()->user()->can('role_list')) abort(401);
         if ($request->ajax()) {
             $data = Role::all();
             return DataTables::of($data)->addIndexColumn()
@@ -138,18 +145,22 @@ class RolesController extends Controller
                 return '<span style="text-transform:capitalize;">'.str_replace('_',' ',$row->name).'</span>';
             })
                 ->addColumn('action', function ($row) {
-                    $editUrl = $deleteUrl = route('service.edit', $row->id);
-                    // $deleteUrl = route('speciality.destroy',$row->id);
+                    $editUrl = route('roles.edit', $row->id);
+                    $deleteUrl  = route('roles.destroy', $row->id);
+                    $viewUrl = route('roles.show', $row->id);
                     $action = '<div style="display:flex;">';
-                    $action .=    '<a class="btn btn-info btn-sm"
-                        href="' . route('roles.show', $row->id) . '">Show</a>&nbsp;';
-                    $action .=    '<a class="btn btn-primary btn-sm" href="' . route('roles.edit', $row->id) . '">Edit</a>&nbsp;';
 
-                    $action .= '<form action="' . route('roles.destroy', $row->id) . '" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                        </form';
+                    $action = '<div style="display:flex;">';
+                    if (auth()->user()->can('role_edit')) {
+                        $action .= view('components.edit', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('role_view')) {
+                        $action .= view('components.view', ['url' => $editUrl]);
+                    }
+                    if (auth()->user()->can('role_delete')) {
+                        $action .= view('components.delete', ['url' => $deleteUrl]);
+                    }
+                    $action .= '</div>';
                     return $action;
                 })
 

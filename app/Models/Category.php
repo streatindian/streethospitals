@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-   protected $fillable = ['name','slug','description','thumbnail','banner_image','parent_id'];
+   protected $fillable = ['type','name','slug','description','thumbnail','banner_image','parent_id'];
 
    public function category(){
     return $this->hasOne('App\Models\Category','id','parent_id');

@@ -7,6 +7,7 @@ use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\Category;
 class HomeController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -26,51 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.home');
+        $data['category'] = Category::where(['status'=>1])->get();
+        return view('front.index')->with($data);
     }
      /**
      * Log out account user.
      *
      * @return \Illuminate\Routing\Redirector
      */
-    public function perform()
-    {
-         $userRole = auth()->user()->roles()->first();
 
-        Session::flush();
-
-        Auth::logout();
-        if(@$userRole->name == 'super_admin' ){
-             return redirect()->route('login');
-        }else{
-            return redirect()->route('user.login');
-        }
-
-    }
-
-    public function get_state(Request $request){
-        $states = State::select('id','name as text')->where('country_id',$request->country)->get()->toArray();
-        // $pos = 0;       // Position where you want to insert
-        // array_splice($states, $pos, 0, array('id'=>0,'text'=>'Select State'));
-        // dd($states);
-        if(count($states)){
-            return response()->json($states);
-        }else{
-            return response()->json([array('id'=>'','text'=>'Select State')]);
-        }
-
-    }
-
-    public function get_city(Request $request){
-        $states = City::select('id','name as text')->where('state_id',$request->state_id)->get()->toArray();
-        // $pos = 0;       // Position where you want to insert
-        // array_splice($states, $pos, 0, array('id'=>0,'text'=>'Select State'));
-        // dd($states);
-        if(count($states)){
-            return response()->json($states);
-        }else{
-            return response()->json([array('id'=>'','text'=>'Select State')]);
-        }
-
-    }
 }
