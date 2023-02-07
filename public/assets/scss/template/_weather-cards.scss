@@ -1,0 +1,134 @@
+.weather-card {
+	background: $white;
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px rgba(181, 201, 227, 0.12), 0 8px 16px 0 rgba(181, 201, 227, 0.24);
+	overflow: hidden;
+	.top {
+		position: relative;
+		overflow: hidden;
+		background: url(../images/photos/19.jpg) no-repeat;
+		background-size: cover;
+		background-position: center center;
+		text-align: center;
+		.weather-wrapper {
+			padding: 15px;
+			position: relative;
+			z-index: 1;
+			.mynav {
+				height: 20px;
+				.fa {
+					color: $white;
+					font-size: 14px;
+				}
+				.icon {
+					display: inline-block;
+					float: left;
+				}
+				.icon1 {
+					display: inline-block;
+					float: right;
+				}
+			}
+			.heading {
+				margin-top: 20px;
+				font-size: 15px;
+				color: $white;
+			}
+			.location {
+				margin-top: 20px;
+				font-size: 18px;
+				font-weight: 400;
+				color: $white;
+			}
+			.temp {
+				margin-top: 20px;
+				a {
+					text-decoration: none;
+					color: $white;
+					.temp-type {
+						font-size: 50px;
+					}
+				}
+				.temp-value {
+					display: inline-block;
+					font-size: 50px;
+					font-weight: 600;
+					color: $white;
+				}
+				.deg {
+					display: inline-block;
+					font-size: 22px;
+					font-weight: 600;
+					color: $white;
+					vertical-align: top;
+					margin-top: 10px;
+				}
+			}
+		}
+		&:after {
+			content: "";
+			height: 100%;
+			width: 100%;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: $black-5;
+		}
+	}
+	.bottom {
+		background: $white;
+		.weather-wrapper .forecast {
+			overflow: hidden;
+			margin: 0;
+			font-size: 0;
+			padding: 0;
+			a {
+				text-decoration: none;
+				color: $black;
+			}
+			.go-up {
+				text-align: center;
+				display: block;
+				font-size: 18px;
+				color: $color;
+				margin-bottom: 10px;
+			}
+			li {
+				display: block;
+				font-size: 17px;
+				font-weight: 400;
+				color: $color;
+				line-height: 1em;
+				margin-bottom: 20px;
+				.date {
+					display: inline-block;
+				}
+				.condition {
+					display: inline-block;
+					vertical-align: middle;
+					float: right;
+					font-size: 16px;
+					.temp {
+						display: inline-block;
+						font-size: 23px;
+						font-weight: 400;
+						.deg {
+							display: inline-block;
+							font-size: 10px;
+							font-weight: 600;
+							margin-left: 3px;
+							vertical-align: top;
+						}
+						.temp-type {
+							font-size: 18px;
+						}
+					}
+				}
+				&.active {
+					color: $color;
+				}
+			}
+		}
+	}
+}

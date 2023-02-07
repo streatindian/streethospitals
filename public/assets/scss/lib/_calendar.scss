@@ -1,0 +1,85 @@
+.cal1 {
+	.clndr .clndr-table {
+		.header-days .header-day {
+			border-left: 1px solid rgba(5, 117, 230, 0.1);
+			border-top: 1px solid #e4e6f1;
+		}
+		tr {
+			.adjacent-month,
+			.empty,
+			.my-adjacent-month,
+			.my-empty {
+				border-left: 1px solid #79c2b2;
+				border-top: 1px solid #79c2b2;
+				background: #f3f3fa;
+			}
+			.day {
+				&.event,
+				&.my-event {
+					background: #f6f7fb;
+				}
+				&.event:hover,
+				&.my-event:hover {
+					background: #15e0fd;
+				}
+				border-left: 1px solid #e4e6f1;
+				border-top: 1px solid #e4e6f1;
+				&:last-child {
+					border-right: 1px solid #e4e6f1;
+				}
+				&:hover {
+					background: #e6f2fe;
+				}
+			}
+		}
+	}
+	font-size: 14px;
+	border: 1px solid #e4e6f1;
+}
+
+.fc-unthemed {
+	.fc-content,
+	.fc-divider,
+	.fc-list-heading td,
+	.fc-list-view,
+	.fc-popover,
+	.fc-row,
+	tbody,
+	td,
+	th,
+	thead {
+		border-color: rgba(227, 237, 252, 1);
+	}
+}
+
+.fc-event {
+	border: 1px solid #e4e6f1;
+}
+
+.fc-unthemed {
+	.fc-divider,
+	.fc-list-heading td,
+	.fc-popover .fc-header {
+		background: #f3f3fa;
+	}
+}
+
+.fc-toolbar {
+	.fc-state-active,
+	.ui-state-active {
+		background: #09acca;
+	}
+}
+
+.fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled:focus {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.fc-unthemed .fc-list-item:hover td {
+	background-color: #f3f3fa;
+}
+
+.conv-form-wrapper div#messages div.message.to {
+	background: rgb(240, 237, 247);
+}

@@ -1,0 +1,279 @@
+.widget-user {
+	.widget-user-header {
+		padding: 20px;
+		height: 120px;
+	}
+	.widget-user-username {
+		margin-top: 0;
+		margin-bottom: 5px;
+		font-size: 25px;
+		font-weight: 300;
+		text-shadow: 0 1px 1px $black-2;
+		color: $white;
+	}
+	.widget-user-desc {
+		margin-top: 0;
+		color: $white;
+	}
+	.widget-user-image {
+		position: absolute;
+		top: 65px;
+		left: 50%;
+		margin-left: -45px;
+		>img {
+			width: 90px;
+			height: auto;
+			border: 3px solid $white;
+		}
+	}
+	.user-wideget-footer {
+		padding-top: 30px;
+	}
+}
+
+.widget-info {
+	i {
+		width: 100px;
+		height: 100px;
+		padding: 27px 0;
+		text-align: center;
+		border: 2px solid $white;
+		border-radius: 50%;
+	}
+	a {
+		border-bottom: 1px solid $white;
+	}
+}
+
+.widgets-cards .wrp {
+	&.icon-circle {
+		width: 73px;
+		height: 73px;
+		border-radius: 50%;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-items: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		padding: 0;
+		margin-right: 15px;
+		i {
+			font-size: 1.6rem;
+			color: $white;
+		}
+	}
+	p {
+		margin-bottom: 0;
+		line-height: 1;
+		margin-bottom: 10px;
+		&:first-child {
+			font-weight: 600;
+			font-size: 30px;
+		}
+	}
+}
+
+.widgets {
+	font-size: 35px;
+	padding: 20px;
+}
+
+.widgetstext {
+	top: 0;
+	bottom: 0;
+	padding: 20px 40px;
+}
+
+.widget-line h4 {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.fs {
+	font-size: 25px;
+}
+
+.widget-line p {
+	font-size: 16px;
+}
+
+.widget-line-list li {
+	display: inline-block;
+	font-size: 16px;
+	line-height: 27px;
+	padding: 5px 20px 0 15px;
+	list-style-type: none;
+}
+
+.wideget-user-tab .tabs-menu1 ul li .active {
+	border: 0;
+	border-radius: 0;
+}
+
+.widgetdate {
+	float: right;
+	border-radius: 2px;
+	background: $white;
+	padding: 0 15px;
+	p {
+		margin-bottom: 0;
+		margin-top: 5px;
+	}
+	h6 {
+		font-size: 22px;
+		font-weight: 600;
+		margin-top: 0;
+		margin-bottom: 5px;
+	}
+}
+
+.widget-image img {
+	width: 50px;
+	height: 50px;
+	border: 5px solid $white;
+}
+
+.wideget-img {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 1.25rem;
+}
+
+.wideget-user-desc {
+	.wideget-user-img img {
+		border-radius: 100%;
+	}
+	.user-wrap {
+		margin-top: 1.5rem;
+	}
+}
+
+.wideget-user .wideget-user-icons a {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	text-align: center;
+	border-radius: 100px;
+	line-height: 2rem;
+	margin-top: .3rem;
+	&:hover {
+		color: $white;
+	}
+}
+
+.wideget-user-info {
+	.wideget-user-warap {
+		display: flex;
+		h4 {
+			font-size: 1.5rem;
+			font-weight: 500;
+			margin-bottom: .4rem;
+		}
+		.wideget-user-warap-r {
+			margin-left: 10rem;
+		}
+	}
+	.wideget-user-rating a {
+		font-size: 18px;
+	}
+}
+
+.wideget-user-tab {
+	.tab-menu-heading {
+		padding: 0;
+		border: 0;
+		.nav li a {
+			color: $color;
+			font-size: 15px;
+			font-weight: 400;
+		}
+	}
+	.tabs-menu1 ul li a {
+		padding: 17px 20px 17px 20px;
+	}
+}
+
+.widgets-cards .widgets-cards-data {
+	margin-top: 8px;
+	.wrp p:first-child {
+		font-size: 20px;
+		font-weight: 600;
+	}
+}
+
+.widget-spec li {
+	margin-bottom: .5rem;
+	font-size: .9rem;
+	display: flex;
+}
+
+.widget-spec1 li {
+	margin-bottom: .5rem;
+	font-size: .9rem;
+}
+
+.widget-spec li {
+	&.icon:before {
+		content: '\f00c';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: block;
+		font-family: fontawesome;
+	}
+	i {
+		margin-right: .5rem;
+		margin-top: 3px;
+	}
+}
+
+.widget-info-right {
+	text-align: right;
+	float: right;
+}
+
+@media (max-width: 992px) {
+	.widget-info-right {
+		text-align: left;
+		float: left;
+	}
+}
+
+.wideget-user-tab.wideget-user-tab3 .tabs-menu1 ul li {
+	a {
+		padding: 10px 20px 12px 20px;
+		display: block;
+		margin: 4px 4px 0 4px;
+		border: 1px solid #e4e6f1;
+		background: #dee0ec;
+		border-radius: 2px 2px 0 0;
+		font-size: 16px;
+		border-bottom: 0 !important;
+	}
+	.active {
+		border-bottom: 0 !important;
+		padding: 10px 20px 12px 20px;
+		border-radius: 2px 2px 0 0;
+		margin-bottom: -2px;
+		background: $white;
+		border: 1px solid #e4e6f1;
+	}
+	&:first-child a {
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 480px) {
+	.wideget-user-tab.wideget-user-tab3 .tabs-menu1 ul li {
+		a {
+			margin: 0px !important;
+		}
+		margin: 3px !important;
+	}
+}

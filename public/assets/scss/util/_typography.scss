@@ -1,0 +1,368 @@
+.heading-inverse {
+	background-color: #333;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-primary {
+	color: $white;
+	padding: 5px;
+}
+
+.heading-success {
+	background-color: $success;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-info {
+	background-color: #00d6e6;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-warning {
+	background-color: $yellow;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-danger {
+	background-color: $danger;
+	color: $white;
+	padding: 5px;
+}
+
+.text-monospace {
+	font-family: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.text-justify {
+	text-align: justify !important;
+}
+
+.text-nowrap {
+	white-space: nowrap !important;
+}
+
+.text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+@media (min-width: 576px) {
+	.text-sm-left {
+		text-align: left !important;
+	}
+	.text-sm-right {
+		text-align: right !important;
+	}
+	.text-sm-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.text-md-left {
+		text-align: left !important;
+	}
+	.text-md-right {
+		text-align: right !important;
+	}
+	.text-md-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.text-lg-left {
+		text-align: left !important;
+	}
+	.text-lg-right {
+		text-align: right !important;
+	}
+	.text-lg-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 1280px) {
+	.text-xl-left {
+		text-align: left !important;
+	}
+	.text-xl-right {
+		text-align: right !important;
+	}
+	.text-xl-center {
+		text-align: center !important;
+	}
+}
+
+.text-lowercase {
+	text-transform: lowercase !important;
+}
+
+.text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.text-capitalize {
+	text-transform: capitalize !important;
+}
+
+.font-weight-light {
+	font-weight: 300 !important;
+}
+
+.font-weight-normal {
+	font-weight: 400 !important;
+}
+
+.font-weight-semibold {
+	font-weight: 500 !important;
+}
+
+.font-weight-bold {
+	font-weight: 700 !important;
+}
+
+.font-italic {
+	font-style: italic !important;
+}
+
+.text-white {
+	color: $white !important;
+}
+
+.text-success {
+	color: #05a01f !important;
+}
+
+a.text-success {
+	&:focus,
+	&:hover {
+		color: #3adfab !important;
+	}
+}
+
+.text-info {
+	color: #00d6e6 !important;
+}
+
+a.text-info {
+	&:focus,
+	&:hover {
+		color: #1594ef !important;
+	}
+}
+
+.text-warning {
+	color: $yellow !important;
+}
+
+a.text-warning {
+	&:focus,
+	&:hover {
+		color: #fa3 !important;
+	}
+}
+
+.text-danger {
+	color: $danger !important;
+}
+
+a.text-danger {
+	&:focus,
+	&:hover {
+		color: #fb5b50 !important;
+	}
+}
+
+.text-light {
+	color: #f8f9fa !important;
+}
+
+a.text-light {
+	&:focus,
+	&:hover {
+		color: #dae0e5 !important;
+	}
+}
+
+.text-dark {
+	color: $color !important;
+}
+
+.text-body {
+	color: #3d4e67 !important;
+}
+
+.text-muted {
+	color: #6e82a9 !important;
+}
+
+.text-black-50 {
+	color: $black-5 !important;
+}
+
+.text-white-50 {
+	color: $white-5 !important;
+}
+
+.text-white-80 {
+	color: $white-8 !important;
+}
+
+.text-hide {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+.visible {
+	visibility: visible !important;
+}
+
+.invisible {
+	visibility: hidden !important;
+}
+
+.text-wrap {
+	font-size: 14px;
+	line-height: 1.66;
+	> {
+		 :first-child {
+			margin-top: 0;
+		}
+		 :last-child {
+			margin-bottom: 0;
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin-top: 1em;
+		}
+	}
+}
+
+.text-inherit {
+	color: inherit !important;
+}
+
+.text-default {
+	color: $color !important;
+}
+
+.text-muted-dark {
+	color: #5f6877 !important;
+}
+
+.tracking-tight {
+	letter-spacing: -0.05em !important;
+}
+
+.tracking-normal {
+	letter-spacing: 0 !important;
+}
+
+.tracking-wide {
+	letter-spacing: 0.05em !important;
+}
+
+.leading-none {
+	line-height: 1 !important;
+}
+
+.leading-tight {
+	line-height: 1.3 !important;
+}
+
+.leading-normal {
+	line-height: 1.5 !important;
+}
+
+.leading-loose {
+	line-height: 2 !important;
+}
+
+.text-blue {
+	color: #3ba2ff !important;
+}
+
+.text-indigo {
+	color: $indigo !important;
+}
+
+.text-purple {
+	color: #6d33ff !important;
+}
+
+.text-lightpink-red {
+	color: #ff7088 !important;
+}
+
+.text-lightgreen {
+	color: #26eda2 !important;
+}
+
+.text-pink {
+	color: #ff2b88 !important;
+}
+
+.text-red {
+	color: $danger !important;
+}
+
+.text-orange {
+	color: #e67605 !important;
+}
+
+.text-yellow {
+	color: $yellow !important;
+}
+
+.text-green {
+	color: $success !important;
+}
+
+.text-teal {
+	color: #05e6e6 !important;
+}
+
+.text-cyan {
+	color: #17a2b8 !important;
+}
+
+.text-gray {
+	color: #858d97 !important;
+}
+
+.text-gray-dark {
+	color: $gray-dark !important;
+}
+
+.text-azure {
+	color: #00d6e6 !important;
+}
+
+.text-lime {
+	color: #63e600 !important;
+}

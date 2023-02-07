@@ -1,0 +1,77 @@
+.countdown-timer-wrapper {
+	border-radius: 5px;
+    max-width: 500px;
+    margin: 50px auto 50px auto;
+    line-height: 0.50;
+}
+.countdown-timer-wrapper.countdown-timer-wrapper1{
+	margin: 0px auto;
+}
+.countdown-timer-wrapper h5 {
+	font-size: 14px;
+	letter-spacing: 0.5px;
+	text-align: center;
+	padding-top: 10px;
+	text-shadow: none;
+}
+
+.countdown-timer-wrapper .timer {
+	text-align: center;
+}
+
+.countdown-timer-wrapper .timer .timer-wrapper {
+	display: inline-block;
+	width: 110px;
+	height: 94px;
+	
+}
+
+.countdown-timer-wrapper .timer .timer-wrapper .time {
+	font-size: 1.83rem;
+	font-weight: bold;	
+	width:88px;
+	height:88px;
+	border-radius:50%;
+	line-height:2;
+	text-align:center;
+	margin:0 auto;
+	margin-bottom:-33px;
+	position:relative;
+	overflow:hidden;
+	background:rgb(255, 255, 255);
+	z-index:-1;
+	border:5px solid rgb(255, 255, 255);
+}
+.countdown-timer-wrapper.countdown-timer-wrapper1 .timer .timer-wrapper .time {
+	background:rgba(0, 0, 0, 0.2);
+	color: #ffffff;
+}
+.countdown-timer-wrapper.countdown-timer-wrapper1 .timer .timer-wrapper .text {
+	color: #fff;
+}
+.countdown-timer-wrapper .timer .timer-wrapper .text {
+	font-size: 13px;
+	color: #000;
+	padding-top:2px;
+}
+@media (mx-width:568px){
+	.countdown-timer-wrapper .timer .timer-wrapper {
+		margin-top:20px !important;
+	}
+	.countdown-timer-wrapper .timer .timer-wrapper .time{
+		margin-top:20px !important;
+	}
+}
+@media (max-width:544px){
+	.countdown-timer-wrapper .timer .timer-wrapper .time {
+		width:70px;
+		height:70px;
+		font-size: 1.50rem;
+		margin-bottom:-24px;
+	}
+	.countdown-timer-wrapper {
+		border-radius: 5px;
+		max-width: 300px;
+		text-align: center;
+	}
+}

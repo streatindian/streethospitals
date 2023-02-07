@@ -1,0 +1,149 @@
+/*accordion*/
+.accordion {
+	.card {
+		&:not(:first-of-type) {
+			&:not(:last-of-type) {
+				border-bottom: 0;
+				border-radius: 0;
+			}
+			.card-header {
+				&:first-child {
+					border-radius: 0;
+				}
+			}
+		}
+		&:first-of-type {
+			border-bottom: 0;
+			border-bottom-right-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+	}
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 10px;
+	background: $white;
+	border-radius: 2px;
+	.accordion-header {
+		padding: 15px 15px;
+		font-size: 1rem;
+		background-color: $white;
+		cursor: pointer;
+		-webkit-transition: all .5s;
+		-o-transition: all .5s;
+		transition: all .5s;
+		padding: 0.75rem;
+		border: 1px solid #e4e6f1;
+		position: relative;
+		h4 {
+			margin: 0;
+			font-size: 1rem;
+		}
+	}
+	.accordion-body {
+		padding: 15px 15px;
+		font-size: 1rem;
+		line-height: 24px;
+	}
+}
+ul {
+	li {
+		ul {
+			&:hover {
+				visibility: visible;
+				opacity: 1;
+				display: block;
+			}
+		}
+	}
+}
+.demo-accordion {
+	p {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+.panel-group1 {
+	p {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+#bs-collapse {
+	.panel-heading1 {
+		a {
+			&:after {
+				content: "\f01a";
+				font-size: 24px;
+				position: absolute;
+				font-family: FontAwesome;
+				right: 5px;
+				top: 10px;
+				transform: scale(0);
+				transition: all .5s;
+			}
+		}
+	}
+	.panel-heading1.active {
+		a {
+			&:after {
+				content: "\f01a";
+				transform: scale(1);
+				transition: all .5s;
+			}
+		}
+	}
+}
+#accordion {
+	.panel-heading1 {
+		a.collapsed {
+			&:before {
+				content: "\f106";
+				position: absolute;
+				font-family: FontAwesome !important;
+				transform: rotate(180deg);
+				transition: all .5s;
+			}
+		}
+		a {
+			&:before {
+				transform: rotate(0);
+				transition: all .5s;
+				content: "\f106";
+				font-family: FontAwesome !important;
+			}
+		}
+	}
+	.accordion-header.collapsed {
+		&:before {
+			content: "\f106";
+			position: absolute;
+			font-family: FontAwesome !important;
+			transform: rotate(180deg);
+			transition: all .5s;
+			right: 10px;
+			top: 12px;
+		}
+	}
+	.accordion-header {
+		&:before {
+			transform: rotate(0);
+			transition: all .5s;
+			content: "\f106";
+			position: absolute;
+			font-family: FontAwesome !important;
+			right: 10px;
+			top: 12px;
+		}
+	}
+}
+.collapse {
+	&:not(.show) {
+		display: none;
+	}
+}

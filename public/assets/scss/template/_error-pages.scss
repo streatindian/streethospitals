@@ -1,0 +1,144 @@
+.about-img {
+	background: url(../images/media/about.jpg);
+	background-size: cover;
+	background-position: center;
+	border-radius: 2px;
+	margin-top: 1.5rem;
+}
+
+.login-img {
+	background: url(../images/other/login.jpg);
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.error-img {
+	background: url(../images/media/about.jpg);
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	.card {
+		background: $white-2;
+		box-shadow: 0 0.0625em 0.1875em 0 #076271, 0 0.5em 0 -0.25em $white-3, 0 0.5em 0.1875em -0.25em #086372, 0 1em 0 -0.5em rgba(255, 255, 255, 0.35), 0 1em 0.1875em -0.5em #096675;
+	}
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		background: linear-gradient(to right, rgba(15, 117, 255, 0.8), rgba(45, 220, 211, 0.8));
+		width: 100%;
+		height: 100%;
+		right: 0;
+		top: 0;
+	}
+}
+
+hr.divider {
+	padding: 0;
+	border: none;
+	border-top: solid 1px #e4e6f1;
+	color: #333;
+	text-align: center;
+	margin: .5rem 0;
+	&:after {
+		content: "or";
+		display: inline-block;
+		position: relative;
+		top: -.9em;
+		font-size: 1.2em;
+		padding: 0 .25em;
+		background: $white;
+	}
+}
+
+.construction-img {
+	background: url(../images/other/construction.jpg);
+	background-size: cover;
+}
+
+.z-index-10 {
+	z-index: 10;
+}
+
+.about img {
+	width: 60px;
+	height: 60px;
+	text-align: center;
+}
+
+.constuction-logo {
+	border-bottom: 3px solid;
+	border-radius: 2px;
+}
+
+.coupon-code .coupon {
+	background: rgba(242, 187, 26, 0.1);
+	border: 2px dashed #f2bb1a;
+	text-align: center;
+	border-radius: 2px;
+}
+
+.construction-image {
+	background: url(../images/media/photos/construction.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+	&:before {
+		position: fixed;
+		content: '';
+		width: 100%;
+		height: 100%;
+		display: block;
+		z-index: 1;
+		left: 0;
+		right: 0;
+	}
+}
+
+.construction {
+	z-index: 1;
+	.btn.btn-icon {
+		border: 1px solid $white-7;
+		text-align: center;
+		padding: 0;
+		background: 0 0;
+		font-size: 20px;
+		color: $white-9;
+		margin: 0 5px;
+		border-radius: 50%;
+	}
+	.form-control {
+		border: 1px solid #c4c5c9;
+		padding-left: 20px;
+		width: 60%;
+	}
+	.input-group-1 {
+		margin: 0 auto;
+	}
+	h3 {
+		color: $white;
+		font-size: 3.2rem;
+		font-weight: 800 !important;
+		margin-bottom: 0.4em !important;
+		letter-spacing: 0;
+		padding-bottom: 0;
+		line-height: 1.2;
+	}
+	p {
+		margin-bottom: 0;
+		font-weight: 400;
+		font-size: .9375em;
+		letter-spacing: .06667em;
+		color: $white-7;
+	}
+}
+
+.construction-image .card {
+	background: rgb(255, 255, 255);
+}
+
+.loader-img .floating {
+	animation: floating 3s ease infinite;
+	will-change: transform;
+}

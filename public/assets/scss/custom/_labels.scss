@@ -1,0 +1,100 @@
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	color: $white;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	display: inline-block;
+	margin-bottom: .5rem;
+}
+
+.label-pill {
+	padding-right: .6em;
+	padding-left: .6em;
+	border-radius: 10rem;
+}
+
+.label-info {
+	background-color: #00d6e6;
+}
+
+.label-danger {
+	background-color: $danger;
+}
+
+.label-warning {
+	background-color: $yellow;
+}
+
+.label-success {
+	background-color: $success;
+}
+
+.label-purple {
+	background-color: #6d33ff;
+}
+
+.label-pink {
+	background-color: #ff2b88;
+}
+
+.label-light {
+	background-color: #dee0ec;
+	color: $color;
+}
+
+.label {
+	&.arrowed {
+		position: relative;
+		margin-left: 9px;
+	}
+	&.arrowed-in {
+		position: relative;
+		margin-left: 9px;
+		&:before {
+			display: inline-block;
+			content: "";
+			position: absolute;
+			left: -14px;
+			top: 0;
+			border: 9px solid transparent;
+			border-width: 9px 7px;
+			border-right-color: #e67605;
+		}
+	}
+	&.arrowed:before {
+		display: inline-block;
+		content: "";
+		position: absolute;
+		left: -14px;
+		top: 0;
+		border: 9px solid transparent;
+		border-width: 9px 7px;
+		border-right-color: #e67605;
+	}
+	&.arrowed-in-right,
+	&.arrowed-right {
+		position: relative;
+		margin-right: 9px;
+		border-radius: 0 2px 2px 0;
+	}
+}
+
+.label-info.arrowed:before {
+	border-right-color: #00d6e6;
+}
+
+.label-danger.arrowed:before {
+	border-right-color: $danger;
+}
+
+.label-success.arrowed:before {
+	border-right-color: $success;
+}
+
+.label-warning.arrowed:before {
+	border-right-color: $yellow;
+}

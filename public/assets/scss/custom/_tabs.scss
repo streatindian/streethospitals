@@ -1,0 +1,156 @@
+.tab-content> {
+	.tab-pane {
+		display: none;
+	}
+	.active {
+		display: block;
+	}
+}
+
+@media (max-width: 480px) {
+	.tab-content.card-body {
+		.btn {
+			min-width: 1.625rem;
+		}
+		.progress-bar {
+			display: none;
+		}
+	}
+}
+
+.tabs-menu ul li {
+	a {
+		padding: 10px 20px 11px 20px;
+	}
+	.active {
+		color: $white;
+		border-radius: 2px;
+	}
+}
+
+.tabs-menu1 ul li {
+	a {
+		padding: 10px 20px 11px 20px;
+	}
+	.active {
+		border-radius: 2px;
+	}
+}
+
+.tabs-menu-body {
+	padding: 15px;
+	border: 1px solid #e4e6f1;
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.tab-menu-heading {
+	padding: 20px;
+	border: 1px solid #e4e6f1;
+	border-bottom: 0;
+}
+
+.tab_wrapper {
+	.content_wrapper .tab_content.active p:last-child {
+		margin-bottom: 0;
+	}
+	>ul {
+		li {
+			border: 1px solid #e4e6f1;
+			border-top: 3px solid #e4e6f1;
+		}
+		border-bottom: 1px solid #e4e6f1;
+	}
+	&.right_side {
+		.content_wrapper {
+			border: 1px solid #e4e6f1;
+		}
+		>ul {
+			li {
+				&.active {
+					border-color: #e4e6f1;
+				}
+				&:after {
+					background: #e4e6f1;
+				}
+			}
+			border-bottom: 1px solid #e4e6f1;
+		}
+	}
+}
+
+@media (min-width: 767px) {
+	.tab-content #tab-11 {
+		.item-card9-img {
+			width: 400px;
+			&.doctor-details {
+				width: 200px;
+			}
+		}
+		.item-card9-imgs img {
+			height: 190px;
+		}
+		.item-card9-img .doctors {
+			width: 200px;
+		}
+		.item-card2-img img {
+			height: 197px;
+		}
+	}
+}
+
+#tab-11 .item-card2-img:hover a {
+	background: 0 0;
+}
+
+#tab-12 {
+	.item-card2-img:hover a {
+		background: 0 0;
+	}
+	.address {
+		display: grid !important;
+	}
+}
+
+.tabs-menu ul.eductaional-tabs li a {
+	padding: 10px 20px 11px 20px;
+	background: #ff2b88;
+	border-radius: 23px;
+	margin: 10px;
+	color: $white;
+}
+
+@media (max-width: 480px) {
+	.tabs-menu ul.eductaional-tabs li {
+		a {
+			margin: 0;
+		}
+		width: 100% !important;
+	}
+	.tab-content .tab-pane .card-body a {
+		width: 100%;
+		display: block;
+		&.float-right {
+			float: none !important;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.tabs-menu1 ul li a {
+		display: block;
+		width: 100%;
+		border: 1px solid #e4e6f1;
+		margin: 1px;
+		border-radius: 2px;
+	}
+}
+
+@media (min-width: 561px) and (max-width: 767px) {
+	.tabs-menu1 ul li {
+		display: block;
+		width: 49%;
+		margin: 1px;
+	}
+}

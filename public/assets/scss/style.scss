@@ -1,0 +1,198 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project        :   Medz - Medical Directory HTML Template
+Version        :   V.1
+Create Date    :   07/11/20
+Copyright      :   Spruko Technologies Private Limited 
+Author         :   SprukoSoft
+Author URL     :   https://themeforest.net/user/sprukosoft
+Support		   :   support@spruko.com
+License        :   Licensed under ThemeForest License
+
+-------------------------------------------------------------------*/
+
+ 
+@import "variables";
+
+
+/* ------ Table Of Contents  
+
+
+    Accordion
+    Alerts
+    Avatars
+    Badges
+	Bootstrap-styles
+	Breadcrumb
+	Buttons 
+	Card-styles
+	Carousel
+	Dropdown-styles
+	Grid
+	Input-group
+	Jumbotron
+	Modal 
+	Nav-styles
+	Pagination
+	Panels
+	Popover
+	Progress Styles
+	Table Styles
+	Tag Styles
+	Thumbnail Styles
+	ToolTip
+	Components-Cols
+	Count-Down Styles
+	Custom Style
+	Gallery
+	Highlight
+	IE-styles
+	Labels
+	List Group
+	Media
+	Pricing Styles
+	Rating Stars
+	Tabs
+	Time Line
+	Footers
+	Headers
+	Horizontal-menu
+	Icons
+	Item Styles
+	Loader
+	Sidebar
+	Calendar
+	Checkbox
+	Custom-control
+	Custom-range
+	Custom-switch
+	Date-picker
+	Form-elements
+	Jvector Maps
+	Range Slide
+	Select2-styles
+	Select-group
+	Selectize
+	Chart Styles
+	Chat Styles
+	Error-pages
+	Mail Styles
+	Maps Styles
+	Ribbons
+	User-card
+    Weather-cards";
+	Widgets Styles
+	Alignment
+	Background
+	Border
+	Display
+	Float
+	Height
+	Margin
+	Padding
+	Position
+	Typography
+	Width
+	
+ ------ */
+ 
+
+
+@import "custom/fonts/fonts";
+
+
+
+/* ###### bootstrap ####### */
+
+@import "bootstrap/bootstrap-styles";
+@import "bootstrap/accordion";
+@import "bootstrap/alerts";
+@import "bootstrap/avatars";
+@import "bootstrap/badges";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/buttons";
+@import "bootstrap/card-styles";
+@import "bootstrap/carousel";
+@import "bootstrap/dropdown-styles";
+@import "bootstrap/grid";
+@import "bootstrap/input-group";
+@import "bootstrap/jumbotron";
+@import "bootstrap/modal";
+@import "bootstrap/nav-styles";
+@import "bootstrap/pagination";
+@import "bootstrap/panels";
+@import "bootstrap/popover";
+@import "bootstrap/progress";
+@import "bootstrap/table";
+@import "bootstrap/tags";
+@import "bootstrap/thumbnails";
+@import "bootstrap/tooltip";
+
+/* ###### custom ####### */
+
+@import "custom/components-cols";
+@import "custom/count-down";
+@import "custom/custom-styles";
+@import "custom/gallery";
+@import "custom/highlight";
+@import "custom/Ie-styles";
+@import "custom/labels";
+@import "custom/list-styles";
+@import "custom/media";
+@import "custom/pricing-styles";
+@import "custom/ratings";
+@import "custom/tabs";
+@import "custom/timeline";
+
+/* ###### layout ####### */
+
+@import "layout/footer";
+@import "layout/header";
+@import "layout/horizontal";
+@import "layout/icons";
+@import "layout/item-styles";
+@import "layout/loaders";
+@import "layout/sidebar";
+
+/* ###### lib ####### */
+
+@import "lib/calendar";
+@import "lib/checkbox";
+@import "lib/custom-control";
+@import "lib/custom-range";
+@import "lib/custom-switch";
+@import "lib/date-picker";
+@import "lib/form-elements";
+@import "lib/jvector";
+@import "lib/rangeslider";
+@import "lib/select2";
+@import "lib/select-group";
+@import "lib/selectize";
+
+/* ###### template ####### */
+
+@import "template/admin-navbar";
+@import "template/charts";
+@import "template/chat-styles";
+@import "template/error-pages";
+@import "template/mails";
+@import "template/map-styles";
+@import "template/ribbons";
+@import "template/user-cards";
+@import "template/weather-cards";
+@import "template/widgets";
+
+/* ###### util ####### */
+
+@import "util/alignment";
+@import "util/background";
+@import "util/border";
+@import "util/display";
+@import "util/float-styles";
+@import "util/height";
+@import "util/margin";
+@import "util/padding";
+@import "util/position";
+@import "util/typography";
+@import "util/width";

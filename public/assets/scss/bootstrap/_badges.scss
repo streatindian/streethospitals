@@ -1,0 +1,390 @@
+.btn {
+	.badge {
+		position: relative;
+		top: -1px;
+	}
+}
+.badge-success {
+	color: $white;
+	background-color: $success;
+}
+.badge-success[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: $success;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: $success;
+		box-shadow: none;
+	}
+}
+.badge-info {
+	color: $white;
+	background-color: #02aed4;
+}
+.badge-info[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: #02aed4;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: #02aed4;
+		box-shadow: none;
+	}
+}
+.badge-warning {
+	color: $white;
+	background-color: $yellow;
+}
+.badge-warning[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: $yellow;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: $yellow;
+		box-shadow: none;
+	}
+}
+.badge-danger {
+	color: $white;
+	background-color: $danger;
+}
+.badge-danger[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: $danger;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: $danger;
+		box-shadow: none;
+	}
+}
+.badge-light {
+	background-color: #dee0ec;
+	color: $color;
+}
+.badge-light[href] {
+	&:focus {
+		color: #3d4e67;
+		text-decoration: none;
+		background-color: #dae0e5;
+		box-shadow: none;
+	}
+	&:hover {
+		color: #3d4e67;
+		text-decoration: none;
+		background-color: #dae0e5;
+		box-shadow: none;
+	}
+}
+.badge-dark {
+	color: $white;
+	background-color: $gray-dark;
+}
+.badge-dark[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: #1d2124;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: #1d2124;
+		box-shadow: none;
+	}
+}
+.badge-pink {
+	color: $white;
+	background-color: #ed3284;
+}
+.badge-pink[href] {
+	&:focus {
+		color: $white;
+		text-decoration: none;
+		background-color: #ed3284;
+		box-shadow: none;
+	}
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: #ed3284;
+		box-shadow: none;
+	}
+}
+.badge {
+	display: inline-block;
+	padding: .25em .4em;
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 2px;
+}
+.badge-sm {
+	font-size: 11px;
+	padding-top: .15em;
+}
+.badge-pill {
+	padding-right: .6em;
+	padding-left: .6em;
+	border-radius: 10rem;
+}
+.badgetext {
+	float: right;
+}
+.badge-default {
+	background: #e8e9f1;
+	color: #6e82a9;
+}
+.badge-offer {
+	position: absolute;
+	top: 0;
+	left: 15px;
+	z-index: 2;
+	padding: 5px;
+	font-weight: 400;
+	text-align: center;
+	color: $white;
+	font-size: 16px;
+	height: 33px;
+	width: 50px;
+	margin-bottom: 0;
+}
+.badge-offer.bg-danger {
+	&:after {
+		border-top: 12px solid $danger;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-primary {
+	&:after {
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-secondary {
+	&:after {
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-success {
+	&:after {
+		border-top: 12px solid $success;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-info {
+	&:after {
+		border-top: 12px solid #00d6e6;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-warning {
+	&:after {
+		border-top: 12px solid $yellow;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-purple {
+	&:after {
+		border-top: 12px solid #6d33ff;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer.bg-pink {
+	&:after {
+		border-top: 12px solid #ff2b88;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1 {
+	position: absolute;
+	top: 0;
+	right: 15px;
+	z-index: 2;
+	padding: 5px;
+	font-weight: 400;
+	text-align: center;
+	color: $white;
+	font-size: 16px;
+	height: 33px;
+	width: 50px;
+	margin-bottom: 0;
+}
+.badge-offer1.bg-danger {
+	&:after {
+		border-top: 12px solid $danger;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-primary {
+	&:after {
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-secondary {
+	&:after {
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-success {
+	&:after {
+		border-top: 12px solid $success;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-info {
+	&:after {
+		border-top: 12px solid #00d6e6;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-warning {
+	&:after {
+		border-top: 12px solid $yellow;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-purple {
+	&:after {
+		border-top: 12px solid #6d33ff;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}
+.badge-offer1.bg-pink {
+	&:after {
+		border-top: 12px solid #ff2b88;
+		border-left: 25px solid transparent;
+		border-right: 25px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		top: 33px;
+		width: 0;
+	}
+}

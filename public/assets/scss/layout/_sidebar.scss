@@ -1,0 +1,62 @@
+#sidebar {
+	.dropdown-menu {
+		box-shadow: 0 1px 2px 0 $black-05;
+		min-width: 12rem;
+	}
+	.accordion-toggle i {
+		color: $white;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		vertical-align: middle;
+		width: 30px !important;
+		border-radius: 50%;
+	}
+	ul li.active>a:hover {
+		background: rgba(0, 0, 0, 0.01);
+		border-radius: 2px;
+	}
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+#sidebar {
+	ul li a {
+		color: #bec8d6;
+		font-weight: 300;
+		border-top: 1px solid $white-08;
+		.fa {
+			width: 26px;
+			opacity: .99;
+			display: inline-block;
+			font-family: FontAwesome;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 13px;
+			-webkit-font-smoothing: antialiased;
+			text-shadow: none;
+		}
+	}
+	li a[aria-expanded=true] {
+		background: #0d102c;
+		color: $white;
+		box-shadow: 0 0 10px #9ecaed;
+		border-bottom: 1px solid $white-08;
+		&.active:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 5px;
+			height: 100%;
+			display: block;
+			box-shadow: 0 0 14px 0 #0f75ff;
+		}
+	}
+	.collapse li a:hover {
+		background: rgba(0, 0, 0, 0.01);
+		border-radius: 2px;
+	}
+}

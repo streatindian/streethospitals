@@ -1,0 +1,107 @@
+.row-cards> {
+	.col,
+	[class*=col-] {
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+}
+
+.row-deck> {
+	.col,
+	[class*=col-] {
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-align: stretch;
+		align-items: stretch;
+	}
+	.col .card,
+	[class*=col-] .card {
+		-ms-flex: 1 1 auto;
+		flex: 1 1 auto;
+	}
+}
+
+.col-text {
+	max-width: 48rem;
+}
+
+.col-login {
+	max-width: 24rem;
+}
+
+.gutters-0 {
+	margin-right: 0;
+	margin-left: 0;
+	> {
+		.col,
+		[class*=col-] {
+			padding-right: 0;
+			padding-left: 0;
+		}
+	}
+	.card {
+		margin-bottom: 0;
+	}
+}
+
+.gutters-xs {
+	margin-right: -.25rem;
+	margin-left: -.25rem;
+	> {
+		.col,
+		[class*=col-] {
+			padding-right: .25rem;
+			padding-left: .25rem;
+		}
+	}
+	.card {
+		margin-bottom: .5rem;
+	}
+}
+
+.gutters-sm {
+	margin-right: -.5rem;
+	margin-left: -.5rem;
+	> {
+		.col,
+		[class*=col-] {
+			padding-right: .5rem;
+			padding-left: .5rem;
+		}
+	}
+	.card {
+		margin-bottom: 1rem;
+	}
+}
+
+.gutters-lg {
+	margin-right: -1rem;
+	margin-left: -1rem;
+	> {
+		.col,
+		[class*=col-] {
+			padding-right: 1rem;
+			padding-left: 1rem;
+		}
+	}
+	.card {
+		margin-bottom: 2rem;
+	}
+}
+
+.gutters-xl {
+	margin-right: -1.5rem;
+	margin-left: -1.5rem;
+	> {
+		.col,
+		[class*=col-] {
+			padding-right: 1.5rem;
+			padding-left: 1.5rem;
+		}
+	}
+	.card {
+		margin-bottom: 3rem;
+	}
+}
