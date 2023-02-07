@@ -137,7 +137,7 @@ class PageController extends Controller
                     $imgUrl = asset('uploads/category/' . $row->thumbnail);
                     if ($row->thumbnail)
                         return '<img src="' . $imgUrl . '" height="50" width="50">';
-                    else return '';
+                    else return '';cT
                 })
                 ->editColumn('status', function ($row) {
                     return $row->status ? 'Active' : 'Inactive';
