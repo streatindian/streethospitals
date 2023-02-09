@@ -71,10 +71,13 @@ Route::get('register/partner', [PartnerController::class, 'register'])->name('re
 Route::get('user/login', [LoginController::class, 'user_login'])->name('user.login');
 Route::get('user/register', [RegisterController::class, 'user_register'])->name('user.register');
 
+
+
 // public root
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('profile', [DashboardController::class, 'user_profile'])->name('user.profile');
+        Route::post('profile/update', [DashboardController::class, 'user_profile_update'])->name('user.porfile.update');
     });
     Route::group(['prefix' => 'provider'], function () {
         Route::get('dashboard', [ProviderController::class, 'dashboard'])->name('provider.dashboard');

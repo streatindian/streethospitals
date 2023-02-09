@@ -64,6 +64,42 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label mt-2" id="examplenameInputname2">Url
+                                                <i>(required)</i></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control @error('url') is-invalid @enderror"
+                                                id="" placeholder="" name="url"
+                                                value="{{ $menu_detail ? $menu_detail->url : old('url') }}">
+                                            @error('url')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label mt-2">Sort
+                                                </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="number" max="99" class="form-control @error('sort') is-invalid @enderror"
+                                                id="" placeholder="" name="sort"
+                                                value="{{ $menu_detail ? $menu_detail->url : old('sort') }}">
+                                            @error('sort')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
