@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['category'] = Category::where(['status'=>1])->get();
+        $data['category'] = Category::where(['status'=>1,'type'=>'listing'])->get();
         return view('front.index')->with($data);
     }
      /**
