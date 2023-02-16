@@ -43,8 +43,8 @@
                                     <div class="search-background">
                                         <div class="form row no-gutters">
                                             <div class="form-group col-xl-4 col-lg-4 col-md-12 mb-0 location">
-                                                <input class="form-control border" placeholder="Search Location"
-                                                    type="text">
+                                                <input class="form-control border" id="search" placeholder="Search Location"
+                                                    type="search">
                                                 <span><i class="fa fa-crosshairs  location-gps mr-1"></i></span>
                                             </div>
                                             <div class="form-group col-xl-2 col-lg-2 col-md-12 mb-0">

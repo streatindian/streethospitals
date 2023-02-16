@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SettingController;
@@ -94,3 +95,4 @@ Route::group(['middleware' => ['auth']], function () {
 });
 Route::get('get-states', [DashboardController::class, 'get_state'])->name('get.state');
 Route::get('get-city', [DashboardController::class, 'get_city'])->name('get.city');
+Route::get('search-listing',[ListingController::class, 'search_listing'])->name('search.listing');
