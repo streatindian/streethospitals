@@ -96,3 +96,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('get-states', [DashboardController::class, 'get_state'])->name('get.state');
 Route::get('get-city', [DashboardController::class, 'get_city'])->name('get.city');
 Route::get('search-listing',[ListingController::class, 'search_listing'])->name('search.listing');
+
+Route::get('find-listing',[ListingController::class, 'findListing'])->name('find.listing');
+Route::get('doctor/details/{doctor_id}',[ListingController::class, 'doctorDetails'])->name('doctor.details');

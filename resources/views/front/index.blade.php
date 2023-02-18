@@ -61,7 +61,9 @@
     <script src="{{ asset('assets/js/typeahead.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         var route = "{{ url('search-listing') }}";
-        $('#search').typeahead({
+        $('.search').typeahead({
+            displayKey: 'suggestions',
+            async: true,
             source: function(query, process) {
                 // console.log($(this)[0].$element);
                 return $.get(route, {
