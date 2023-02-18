@@ -1,5 +1,10 @@
 @extends('layouts.front-default')
 @section('content')
+    <style>
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
     <section class="sptb mt-4">
         <div class="container">
             <div class="row">
@@ -16,7 +21,7 @@
                                     <img src="../assets/images/users/female/17.jpg" class="brround" alt="user">
                                 </div>
                                 <a href="userprofile.html" class="text-dark">
-                                    <h4 class="mt-3 mb-0 font-weight-semibold">{{auth()->user()->name}}</h4>
+                                    <h4 class="mt-3 mb-0 font-weight-semibold">{{ auth()->user()->name }}</h4>
                                 </a>
                             </div>
                         </div>
@@ -102,7 +107,7 @@
                             </div>
                             <div class="form-group">
                                 <select name="country" id="select-countries"
-                                    class="form-control custom-select select2-show-search">
+                                    class="form-control custom-select select2">
                                     <option value="1" selected="">All Categories</option>
                                     <option value="2">Hospitals</option>
                                     <option value="3">Doctors</option>
@@ -125,76 +130,112 @@
                             <h3 class="card-title">Edit Profile</h3>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name">
+                            <form action="{{ route('user.porfile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                {{-- @if ($errors->any())
+                                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                                @endif --}}
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" placeholder="Full Name"
+                                                name="name" value="{{ auth()->user()->name }}">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="number" class="form-control" placeholder="Phone Number"
+                                                name="phone" value="{{ auth()->user()->phone }}">
+                                            @error('phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" class="form-control" placeholder="Address" name="address"
+                                                value="{{ auth()->user()->address }}">
+                                            @error('address')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Phone Number</label>
-                                        <input type="number" class="form-control" placeholder="Number">
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Pin Code</label>
+                                            <input type="number" class="form-control" placeholder="Pin Code" name="pincode"
+                                                value="{{ auth()->user()->pincode }}">
+                                            @error('pincode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" placeholder="Vehicle Address">
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="form-group ">
+                                            <label class="form-label text-dark">Country
+                                            </label>
+                                            <select
+                                                class="form-control country  @error('country') is-invalid @enderror select2"
+                                                name="country">
+                                                <option value="">Select Country</option>
+                                                @foreach ($country as $c)
+                                                    <option value="{{ $c->id }}"
+                                                        {{ $c->id == auth()->user()->country || $c->id == old('country') ? 'selected' : '' }}>
+                                                        {{ $c->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('country')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">City</label>
-                                        <input type="text" class="form-control" placeholder="City">
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="form-group ">
+                                            <label class="form-label text-dark">State
+                                            </label>
+                                            <select class="form-control state @error('state') is-invalid @enderror select2"
+                                                name="state">
+                                                <option value="">Select State</option>
+                                            </select>
+                                            @error('state')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Postal Code</label>
-                                        <input type="number" class="form-control" placeholder="ZIP Code">
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="form-group ">
+                                            <label class="form-label text-dark">City
+                                            </label>
+                                            <select class="form-control city  @error('city') is-invalid @enderror select2"
+                                                name="city">
+                                                <option value="">Select City</option>
+                                            </select>
+                                            @error('city')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label class="form-label">Country</label>
-                                        <select
-                                            class="form-control select2-show-search border-bottom-0 w-100 select2-show-search"
-                                            data-placeholder="Select">
-                                            <optgroup label="Categories">
-                                                <option>--Select--</option>
-                                                <option value="1">Germany</option>
-                                                <option value="2">Mercedes-Suzuki Swift</option>
-                                                <option value="3">Canada</option>
-                                                <option value="4">Usa</option>
-                                                <option value="5">Afghanistan</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">China</option>
-                                                <option value="8">Denmark</option>
-                                                <option value="9">Finland</option>
-                                                <option value="10">India</option>
-                                                <option value="11">Kiribati</option>
-                                                <option value="12">Kuwait</option>
-                                                <option value="13">Mexico</option>
-                                                <option value="14">Pakistan</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
+                                    {{-- <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Facebook</label>
                                         <input type="text" class="form-control"
@@ -219,31 +260,59 @@
                                         <input type="text" class="form-control"
                                             placeholder="https://in.pinterest.com/">
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-label">About Me</label>
-                                        <textarea rows="5" class="form-control" placeholder="Enter About your description"></textarea>
+                                </div> --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">About Me</label>
+                                            <textarea rows="5" class="form-control" placeholder="" name="about">{{ auth()->user()->about }}</textarea>
+                                            @error('about')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group mb-0">
-                                        <label class="form-label">Upload Image</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input"
-                                                name="example-file-input-custom">
-                                            <label class="custom-file-label">Choose file</label>
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-0">
+                                            <label class="form-label">Upload Image</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="profile_pic">
+                                                <label class="custom-file-label">Choose file</label>
+                                            </div>
+                                            @error('profile_pic')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            @if (auth()->user()->profile_pic)
+                                                <img src="{{ asset('uploads/users/' . auth()->user()->profile_pic) }}"
+                                                    width="100px">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-secondary">Updated Profile</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary">Updated Profile</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    @php
+        $country = auth()->user()->country ? auth()->user()->country : old('country');
+        $state = auth()->user()->state ? auth()->user()->state : old('state');
+        $city = auth()->user()->city ? auth()->user()->city : old('city');
+    @endphp
+@endsection
+@section('js')
+    <script src="{{ asset('assets/js/myCustom.js') }}"></script>
+    @if ($country)
+        <script>
+            hitOnCountryChange('{{ $country }}', '{{ $state }}', '{{ $city }}');
+        </script>
+    @endif
 @endsection

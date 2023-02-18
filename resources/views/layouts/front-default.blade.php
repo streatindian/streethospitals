@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Street Hospital">
     <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords"  content="">
+    <meta name="keywords" content="">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets/images/brand/favicon.ico') }}" type="image/x-icon" />
@@ -44,7 +44,9 @@
 </head>
 
 <body>
-
+    <script>
+        var base_url = '{{ url('/') }}';
+    </script>
     <!--Loader-->
     <div id="global-loader">
         <img alt="" class="loader-img" src="{{ asset('assets/images/loader.svg') }}">
@@ -78,8 +80,8 @@
 
     </div>
     <!-- /Header-main -->
-@yield('content')
-  
+    @yield('content')
+
     <!--Footer Section-->
     @include('front.includes.footer')
     <!--Footer Section-->
@@ -89,9 +91,8 @@
         <div class="modal-dialog modal-lg modal-appoint" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Make an Appointment</h5><button
-                        aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                            aria-hidden="true">×</span></button>
+                    <h5 class="modal-title" id="exampleModalLabel">Make an Appointment</h5><button aria-label="Close"
+                        class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">

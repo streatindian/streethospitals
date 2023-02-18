@@ -7,7 +7,7 @@ use App\Models\Page;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-
+use Illuminate\Support\Facades\Session;
 use DataTables;
 
 
@@ -70,6 +70,7 @@ class PageController extends Controller
         if (isset($input['id'])) {
             unset($input['id']);
         }
+        // dd($input);
         $page = Page::updateOrCreate($matchThese, $input);
         return redirect()->route('page.index', ['type' => $request->type])->with('success', 'Record ' . ($request->id ? 'Update' : 'Add') . ' Successfully');
     }
@@ -92,9 +93,9 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        // if (!auth()->user()->can('page_edit')) abort(401);
-        // $data['page'] = Category::where('type', 'listing')->get();
-        // return view('admin.pages.category.form', $data);
+        if (!auth()->user()->can('page_add')) abort(401);
+        $data['page_detail'] = Page::find($id);
+        return view('admin.pages.page.form', $data);
     }
 
     /**
@@ -117,10 +118,10 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        if (!auth()->user()->can('category_delete')) abort(401);
-        Category::whereId($id)->delete();
+        if (!auth()->user()->can('page_delete')) abort(401);
+        Page::whereId($id)->delete();
         Session::flash('success', 'Record Delete Successfully');
-        return redirect()->route('category.index', ['type' => request()->query('type') ? request()->query('type') : 'listing']);
+        return redirect()->route('page.index');
     }
 
     public function listing(Request $request)
@@ -129,12 +130,12 @@ class PageController extends Controller
             $data = Page::get();
             return DataTables::of($data)->addIndexColumn()
                 ->editColumn('banner_image', function ($row) {
-                    $imgUrl = asset('uploads/category/' . $row->banner_image);
+                    $imgUrl = asset('uploads/page/' . $row->banner_image);
                     if ($row->banner_image) return '<img src="' . $imgUrl . '" height="50" width="50">';
                     else return '';
                 })
                 ->editColumn('thumbnail', function ($row) {
-                    $imgUrl = asset('uploads/category/' . $row->thumbnail);
+                    $imgUrl = asset('uploads/page/' . $row->thumbnail);
                     if ($row->thumbnail)
                         return '<img src="' . $imgUrl . '" height="50" width="50">';
                     else return '';

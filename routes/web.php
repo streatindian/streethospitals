@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SettingController;
@@ -71,10 +72,13 @@ Route::get('register/partner', [PartnerController::class, 'register'])->name('re
 Route::get('user/login', [LoginController::class, 'user_login'])->name('user.login');
 Route::get('user/register', [RegisterController::class, 'user_register'])->name('user.register');
 
+
+
 // public root
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('profile', [DashboardController::class, 'user_profile'])->name('user.profile');
+        Route::post('profile/update', [DashboardController::class, 'user_profile_update'])->name('user.porfile.update');
     });
     Route::group(['prefix' => 'provider'], function () {
         Route::get('dashboard', [ProviderController::class, 'dashboard'])->name('provider.dashboard');
@@ -91,3 +95,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 Route::get('get-states', [DashboardController::class, 'get_state'])->name('get.state');
 Route::get('get-city', [DashboardController::class, 'get_city'])->name('get.city');
+Route::get('search-listing',[ListingController::class, 'search_listing'])->name('search.listing');
+
+Route::get('find-listing',[ListingController::class, 'findListing'])->name('find.listing');
+Route::get('doctor/details/{doctor_id}',[ListingController::class, 'doctorDetails'])->name('doctor.details');

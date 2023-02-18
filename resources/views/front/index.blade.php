@@ -1,7 +1,20 @@
 @extends('layouts.front-default')
 @section('content')
+    <style>
+        .typeahead {
+            width: 100%;
+        }
+
+        .typeahead li {
+            border-bottom: 2px solid lightgray;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
     <!--Section-->
-    @include('front.includes.banner',['category',$category])
+    @include('front.includes.banner', ['category', $category])
     <!--/Section-->
 
     <!--Section-->
@@ -43,4 +56,22 @@
     <!--Section-->
     @include('front.includes.download-app')
     <!--/Section-->
+@endsection
+@section('js')
+    <script src="{{ asset('assets/js/typeahead.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var route = "{{ url('search-listing') }}";
+        $('.search').typeahead({
+            displayKey: 'suggestions',
+            async: true,
+            source: function(query, process) {
+                // console.log($(this)[0].$element);
+                return $.get(route, {
+                    query: query
+                }, function(data) {
+                    return process(data);
+                });
+            }
+        });
+    </script>
 @endsection

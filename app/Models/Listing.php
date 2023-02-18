@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 // Bolvachan@2022
 
@@ -38,19 +40,26 @@ class Listing extends Model
         "intensive_care_services",
         "pathology",
         "is_radiodiagnosis",
-         "radiodiagnosis",
-          "ambulance",
+        "radiodiagnosis",
+        "ambulance",
         "about",
-        "gender","degree","specialization","state_medical_council","registration_number","birth_date","birth_month",
-        "birth_year","blood_group","clinic_hospital_name","practicing_since_year",
-        "pincode","massage_types","service_type","latitude","longitude","status"
+        "gender", "degree", "specialization", "state_medical_council", "registration_number", "birth_date", "birth_month",
+        "birth_year", "blood_group", "clinic_hospital_name", "practicing_since_year",
+        "pincode", "massage_types", "service_type", "latitude", "longitude", "status"
     ];
 
-    public function course(){
-        return $this->hasMany('App\Models\course','listing_id','id');
+    public function course()
+    {
+        return $this->hasMany('App\Models\course', 'listing_id', 'id');
     }
 
-    public function associations(){
-        return $this->hasMany('App\Models\Association','listing_id','id');
+    public function associations()
+    {
+        return $this->hasMany('App\Models\Association', 'listing_id', 'id');
+    }
+
+    public function CityDetail(): HasOne
+    {
+        return $this->HasOne(City::class, 'id', 'city');
     }
 }

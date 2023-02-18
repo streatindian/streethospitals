@@ -26,7 +26,11 @@ class User extends Authenticatable
         'status',
         'country',
         'state',
-        'city'
+        'city',
+        'address',
+        'pincode',
+        'about',
+        'profile_pic'
     ];
 
     /**
