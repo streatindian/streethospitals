@@ -12,8 +12,6 @@
             </div>
         </div>
     </div>
-    <!--/Breadcrumb-->
-
     <!--Section-->
     <section class="sptb">
         <div class="container">
